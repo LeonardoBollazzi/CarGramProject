@@ -3,6 +3,7 @@ package ch.fhnw.acrm.api;
 import ch.fhnw.acrm.business.service.AgentService;
 import ch.fhnw.acrm.data.domain.Agent;
 import ch.fhnw.acrm.business.service.MediaService;
+import ch.fhnw.acrm.data.domain.Customer;
 import ch.fhnw.acrm.data.domain.Media;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,25 +26,8 @@ public class MediaEndpoint {
     @Autowired
     private AgentService agentService;
 
-    /*@PostMapping(path = "/mediaHandling", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Media> postUser(@RequestBody Media media) {
-        try {
-            media = mediaService.saveMedia(media);
-        } catch (ConstraintViolationException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getConstraintViolations().iterator().next().getMessage());
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-        }
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/{customerId}")
-                .buildAndExpand(media.getId()).toUri();
-
-        return ResponseEntity.created(location).body(media);
-    }*/
-
     @PostMapping(path = "/mediaHandling", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Media> postUser(@RequestBody String str) {
+    public ResponseEntity<Media> postMedia(@RequestBody String str) {
         Media media;
         try {
             Agent agent = agentService.getCurrentAgent();
@@ -66,8 +50,15 @@ public class MediaEndpoint {
         return ResponseEntity.created(location).body(media);
     }
 
-    @GetMapping(path = "/mediaHandling", produces = "application/json")
-    public List<Media> getCustomers() {
+    @GetMapping(path = "/allMediaHandling", produces = "application/json")
+    public List<Media> getMedia() {
         return mediaService.getAllMedia();
+    }
+
+    @GetMapping(path = "/mediaHandling", produces = "application/json")
+    public List<Media> getAgentMedia() {
+        Agent agent = agentService.getCurrentAgent();
+        Long agentId = agent.getId();
+        return mediaService.getAgentMedia(agentId);
     }
 }

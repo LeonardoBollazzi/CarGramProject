@@ -23,4 +23,8 @@ public class MediaService {
     public List<Media> getAllMedia() {
         return mediaRepository.findAll();
     }
+
+    public List<Media> getAgentMedia(Long agentID) {
+        return mediaRepository.findByAgent_IdEquals(agentID);
+    }
 }
