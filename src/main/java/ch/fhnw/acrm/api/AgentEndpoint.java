@@ -11,7 +11,6 @@ import ch.fhnw.acrm.data.domain.Agent;
 
 import javax.validation.ConstraintViolationException;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -34,5 +33,10 @@ public class AgentEndpoint {
                 .buildAndExpand(user.getId()).toUri();
 
         return ResponseEntity.created(location).body(user);
+    }
+
+    @GetMapping(path = "/registration", produces = "application/json")
+    public Agent getCustomers() {
+        return agentService.getCurrentAgent();
     }
 }

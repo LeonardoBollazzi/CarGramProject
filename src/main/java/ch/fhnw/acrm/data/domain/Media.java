@@ -11,18 +11,18 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne( optional = false)
+    @JoinColumn(name = "agentID", nullable = true)
     private Agent agent;
     @Column(name = "url", nullable = false)
     private URL url;
 
-    public Agent getUser() {
+    public Agent getAgent() {
         return agent;
     }
 
-    public void setUser(Agent user) {
-        this.agent = user;
+    public void setAgent(Agent agent) {
+        this.agent = agent;
     }
 
     public URL getUrl() {
