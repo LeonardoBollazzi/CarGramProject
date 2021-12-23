@@ -70,4 +70,17 @@ public class MediaEndpoint {
         }
         return ResponseEntity.ok(media);
     }
+
+    @PutMapping(path = "/likeMedia/{mediaID}", produces = "application/json")
+    public ResponseEntity<Media> putLike(@PathVariable(value = "mediaID") String mediaID) {
+        Media media;
+        try {
+            Agent agent = agentService.getCurrentAgent();
+            media = mediaService.getMediaByID(Long.valueOf(mediaID));
+            mediaService.putMediaLike(media, agent);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
+        }
+        return ResponseEntity.accepted().body(media);
+    }
 }
