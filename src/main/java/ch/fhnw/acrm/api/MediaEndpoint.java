@@ -71,6 +71,18 @@ public class MediaEndpoint {
         return ResponseEntity.ok(media);
     }
 
+    @GetMapping(path = "/likeMedia/{mediaID}", produces = "application/json")
+    public ResponseEntity<Long> getMediaLikes(@PathVariable(value = "mediaID") String mediaID) {
+        Long likesCount;
+        try {
+            Media media = mediaService.getMediaByID(Long.valueOf(mediaID));
+            likesCount = Long.valueOf(media.getLikes().size());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+        return ResponseEntity.ok(likesCount);
+    }
+
     @PutMapping(path = "/likeMedia/{mediaID}", produces = "application/json")
     public ResponseEntity<Media> putLike(@PathVariable(value = "mediaID") String mediaID) {
         Media media;
