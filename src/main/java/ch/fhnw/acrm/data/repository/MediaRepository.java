@@ -11,8 +11,8 @@ import java.util.List;
 public interface MediaRepository extends JpaRepository<Media, Long> {
     @Override
     List<Media> findAll();
-
     List<Media> findByAgent_IdEquals(Long id);
+    List<Media> findByAgent_NameEquals(String name);
 
 
 }

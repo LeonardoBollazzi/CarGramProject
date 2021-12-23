@@ -3,7 +3,6 @@ package ch.fhnw.acrm.api;
 import ch.fhnw.acrm.business.service.AgentService;
 import ch.fhnw.acrm.data.domain.Agent;
 import ch.fhnw.acrm.business.service.MediaService;
-import ch.fhnw.acrm.data.domain.Customer;
 import ch.fhnw.acrm.data.domain.Media;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,6 @@ public class MediaEndpoint {
         try {
             Agent agent = agentService.getCurrentAgent();
             JSONObject json = new JSONObject(str);
-            //json.put("agentID", agent);
             ObjectMapper mapper = new ObjectMapper();
             media = mapper.readValue(json.toString(), Media.class);
             media.setAgent(agent);
@@ -60,5 +58,16 @@ public class MediaEndpoint {
         Agent agent = agentService.getCurrentAgent();
         Long agentId = agent.getId();
         return mediaService.getAgentMedia(agentId);
+    }
+
+    @GetMapping(path = "/mediaHandling/{agentName}", produces = "application/json")
+    public ResponseEntity<List<Media>> getNameMedia(@PathVariable(value = "agentName") String agentName) {
+        List<Media> media = null;
+        try {
+            media = mediaService.getNameMedia(agentName);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+        return ResponseEntity.ok(media);
     }
 }

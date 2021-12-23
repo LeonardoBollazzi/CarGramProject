@@ -27,4 +27,8 @@ public class MediaService {
     public List<Media> getAgentMedia(Long agentID) {
         return mediaRepository.findByAgent_IdEquals(agentID);
     }
+
+    public List<Media> getNameMedia(String agentName) {
+        return mediaRepository.findByAgent_NameEquals(agentName);
+    }
 }
