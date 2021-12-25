@@ -5,13 +5,15 @@ import ch.fhnw.acrm.data.domain.Media;
 import ch.fhnw.acrm.data.repository.MediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Validated
@@ -43,9 +45,24 @@ public class MediaService {
     public Media putMediaLike(Media media, Agent agent) {
         try {
             List<Agent> likesList = media.getLikes();
-            likesList.add(agent);
-            media.setLikes(likesList);
-            mediaRepository.save(media);
+
+            ArrayList<Agent> tempLikesList = new ArrayList<>(likesList);
+            tempLikesList.removeIf(agent1 -> agent.getId().equals(agent1.getId()));
+
+            System.out.println(likesList.size());
+            System.out.println(tempLikesList.size());
+
+            if(likesList.size()-tempLikesList.size() > 0){
+                likesList = tempLikesList;
+                media.setLikes(likesList);
+                mediaRepository.save(media);
+            }
+            else{
+                likesList.add(agent);
+                media.setLikes(likesList);
+                mediaRepository.save(media);
+            }
+
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
         }
