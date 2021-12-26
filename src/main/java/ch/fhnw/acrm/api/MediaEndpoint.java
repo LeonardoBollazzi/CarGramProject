@@ -25,6 +25,7 @@ public class MediaEndpoint {
     @Autowired
     private AgentService agentService;
 
+    // Create new Media with Json as input
     @PostMapping(path = "/mediaHandling", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Media> postMedia(@RequestBody String str) {
         Media media;
@@ -48,11 +49,13 @@ public class MediaEndpoint {
         return ResponseEntity.created(location).body(media);
     }
 
+    // Returns all Media in the system / No Input / Json as Output
     @GetMapping(path = "/allMediaHandling", produces = "application/json")
     public List<Media> getMedia() {
         return mediaService.getAllMedia();
     }
 
+    // Returns all Media from current User (Must be logged in) / No Input / Json as Output
     @GetMapping(path = "/mediaHandling", produces = "application/json")
     public List<Media> getAgentMedia() {
         Agent agent = agentService.getCurrentAgent();
@@ -60,6 +63,7 @@ public class MediaEndpoint {
         return mediaService.getAgentMedia(agentId);
     }
 
+    // Returns all Media from a specific user / User name as input / Json as Output
     @GetMapping(path = "/mediaHandling/{agentName}", produces = "application/json")
     public ResponseEntity<List<Media>> getNameMedia(@PathVariable(value = "agentName") String agentName) {
         List<Media> media = null;
@@ -71,6 +75,7 @@ public class MediaEndpoint {
         return ResponseEntity.ok(media);
     }
 
+    // Returns the likes from a specific Media / Media ID as input / long as Output
     @GetMapping(path = "/likeMedia/{mediaID}", produces = "application/json")
     public ResponseEntity<Long> getMediaLikes(@PathVariable(value = "mediaID") String mediaID) {
         long likesCount;
@@ -83,6 +88,7 @@ public class MediaEndpoint {
         return ResponseEntity.ok(likesCount);
     }
 
+    // likes or unlikes a specific Media (Must be logged in) / media ID as Input / json as Output
     @PutMapping(path = "/likeMedia/{mediaID}", produces = "application/json")
     public ResponseEntity<Media> putLike(@PathVariable(value = "mediaID") String mediaID) {
         Media media;

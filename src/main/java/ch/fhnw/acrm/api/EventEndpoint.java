@@ -25,6 +25,8 @@ public class EventEndpoint {
     @Autowired
     private AgentService agentService;
 
+
+    // Create new Event with Json as input
     @PostMapping(path = "/eventHandling", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Event> postMedia(@RequestBody String str) {
         Event event;
@@ -48,11 +50,13 @@ public class EventEndpoint {
         return ResponseEntity.created(location).body(event);
     }
 
+    // Returns all Events in the system / No Input / Json as Output
     @GetMapping(path = "/allEventHandling", produces = "application/json")
     public List<Event> getMedia() {
         return eventService.getAllEvent();
     }
 
+    // Returns all Events from current User (Must be logged in) / No Input / Json as Output
     @GetMapping(path = "/eventHandling", produces = "application/json")
     public List<Event> getAgentMedia() {
         Agent agent = agentService.getCurrentAgent();
@@ -60,6 +64,7 @@ public class EventEndpoint {
         return eventService.getAgentEvent(agentId);
     }
 
+    // Returns all Events from a specific user / User name as input / Json as Output
     @GetMapping(path = "/eventHandling/{agentName}", produces = "application/json")
     public ResponseEntity<List<Event>> getNameMedia(@PathVariable(value = "agentName") String agentName) {
         List<Event> events = null;
@@ -71,6 +76,7 @@ public class EventEndpoint {
         return ResponseEntity.ok(events);
     }
 
+    // Returns the likes from a specific Event / Event ID as input / long as Output
     @GetMapping(path = "/likeEvent/{eventID}", produces = "application/json")
     public ResponseEntity<Long> getMediaLikes(@PathVariable(value = "eventID") String eventID) {
         long likesCount;
@@ -83,6 +89,7 @@ public class EventEndpoint {
         return ResponseEntity.ok(likesCount);
     }
 
+    // likes or unlikes a specific Event (Must be logged in) / event ID as Input / json as Output
     @PutMapping(path = "/likeEvent/{eventID}", produces = "application/json")
     public ResponseEntity<Event> putLike(@PathVariable(value = "eventID") String eventID) {
         Event event;
