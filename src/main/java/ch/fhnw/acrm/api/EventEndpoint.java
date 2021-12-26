@@ -2,8 +2,8 @@ package ch.fhnw.acrm.api;
 
 import ch.fhnw.acrm.business.service.AgentService;
 import ch.fhnw.acrm.data.domain.Agent;
-import ch.fhnw.acrm.business.service.MediaService;
-import ch.fhnw.acrm.data.domain.Media;
+import ch.fhnw.acrm.business.service.EventService;
+import ch.fhnw.acrm.data.domain.Event;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
@@ -19,22 +19,22 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api")
-public class MediaEndpoint {
+public class EventEndpoint {
     @Autowired
-    private MediaService mediaService;
+    private EventService eventService;
     @Autowired
     private AgentService agentService;
 
-    @PostMapping(path = "/mediaHandling", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Media> postMedia(@RequestBody String str) {
-        Media media;
+    @PostMapping(path = "/eventHandling", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Event> postMedia(@RequestBody String str) {
+        Event event;
         try {
             Agent agent = agentService.getCurrentAgent();
             JSONObject json = new JSONObject(str);
             ObjectMapper mapper = new ObjectMapper();
-            media = mapper.readValue(json.toString(), Media.class);
-            media.setAgent(agent);
-            media = mediaService.saveMedia(media);
+            event = mapper.readValue(json.toString(), Event.class);
+            event.setAgent(agent);
+            event = eventService.saveEvent(event);
         } catch (ConstraintViolationException e) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getConstraintViolations().iterator().next().getMessage());
         } catch (Exception e) {
@@ -43,56 +43,56 @@ public class MediaEndpoint {
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{mediaID}")
-                .buildAndExpand(media.getId()).toUri();
+                .buildAndExpand(event.getId()).toUri();
 
-        return ResponseEntity.created(location).body(media);
+        return ResponseEntity.created(location).body(event);
     }
 
-    @GetMapping(path = "/allMediaHandling", produces = "application/json")
-    public List<Media> getMedia() {
-        return mediaService.getAllMedia();
+    @GetMapping(path = "/allEventHandling", produces = "application/json")
+    public List<Event> getMedia() {
+        return eventService.getAllEvent();
     }
 
-    @GetMapping(path = "/mediaHandling", produces = "application/json")
-    public List<Media> getAgentMedia() {
+    @GetMapping(path = "/eventHandling", produces = "application/json")
+    public List<Event> getAgentMedia() {
         Agent agent = agentService.getCurrentAgent();
         Long agentId = agent.getId();
-        return mediaService.getAgentMedia(agentId);
+        return eventService.getAgentEvent(agentId);
     }
 
-    @GetMapping(path = "/mediaHandling/{agentName}", produces = "application/json")
-    public ResponseEntity<List<Media>> getNameMedia(@PathVariable(value = "agentName") String agentName) {
-        List<Media> media = null;
+    @GetMapping(path = "/eventHandling/{agentName}", produces = "application/json")
+    public ResponseEntity<List<Event>> getNameMedia(@PathVariable(value = "agentName") String agentName) {
+        List<Event> events = null;
         try {
-            media = mediaService.getNameMedia(agentName);
+            events = eventService.getNameEvent(agentName);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
-        return ResponseEntity.ok(media);
+        return ResponseEntity.ok(events);
     }
 
-    @GetMapping(path = "/likeMedia/{mediaID}", produces = "application/json")
-    public ResponseEntity<Long> getMediaLikes(@PathVariable(value = "mediaID") String mediaID) {
+    @GetMapping(path = "/likeEvent/{eventID}", produces = "application/json")
+    public ResponseEntity<Long> getMediaLikes(@PathVariable(value = "eventID") String eventID) {
         long likesCount;
         try {
-            Media media = mediaService.getMediaByID(Long.valueOf(mediaID));
-            likesCount = media.getLikes().size();
+            Event event = eventService.getEventByID(Long.valueOf(eventID));
+            likesCount = event.getLikes().size();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
         return ResponseEntity.ok(likesCount);
     }
 
-    @PutMapping(path = "/likeMedia/{mediaID}", produces = "application/json")
-    public ResponseEntity<Media> putLike(@PathVariable(value = "mediaID") String mediaID) {
-        Media media;
+    @PutMapping(path = "/likeEvent/{eventID}", produces = "application/json")
+    public ResponseEntity<Event> putLike(@PathVariable(value = "eventID") String eventID) {
+        Event event;
         try {
             Agent agent = agentService.getCurrentAgent();
-            media = mediaService.getMediaByID(Long.valueOf(mediaID));
-            mediaService.putMediaLike(media, agent);
+            event = eventService.getEventByID(Long.valueOf(eventID));
+            eventService.putEventLike(event, agent);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
         }
-        return ResponseEntity.accepted().body(media);
+        return ResponseEntity.accepted().body(event);
     }
 }

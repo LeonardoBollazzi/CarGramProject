@@ -49,9 +49,6 @@ public class MediaService {
             ArrayList<Agent> tempLikesList = new ArrayList<>(likesList);
             tempLikesList.removeIf(agent1 -> agent.getId().equals(agent1.getId()));
 
-            System.out.println(likesList.size());
-            System.out.println(tempLikesList.size());
-
             if(likesList.size()-tempLikesList.size() > 0){
                 likesList = tempLikesList;
                 media.setLikes(likesList);
