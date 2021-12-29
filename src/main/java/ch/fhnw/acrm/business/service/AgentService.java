@@ -71,10 +71,6 @@ public class AgentService {
                 Set<Agent> tempFollowList = new HashSet<>(followList);
                 tempFollowList.removeIf(agent1 -> followee.getId().equals(agent1.getId()));
 
-                System.out.println(followList.size());
-                System.out.println(tempFollowList.size());
-
-
                 if (followList.size() - tempFollowList.size() > 0) {
                     followList = tempFollowList;
                     follower.setAgentFollows(followList);
