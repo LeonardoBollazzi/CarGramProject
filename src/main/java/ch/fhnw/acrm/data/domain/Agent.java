@@ -7,11 +7,15 @@ package ch.fhnw.acrm.data.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Agent {
@@ -34,6 +38,19 @@ public class Agent {
 	@JsonIgnore
 	private List<Customer> customers;
 
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "Follows",
+			joinColumns = @JoinColumn(name = "Follower_ID", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "Followee_ID", referencedColumnName = "id"))
+	private Set<Agent> agentFollows = new LinkedHashSet<>();
+
+	public Set<Agent> getAgentFollows() {
+		return agentFollows;
+	}
+
+	public void setAgentFollows(Set<Agent> agentFollows) {
+		this.agentFollows = agentFollows;
+	}
 
 	public Long getId() {
 		return id;
@@ -87,5 +104,18 @@ public class Agent {
 
 	public String getRole() {
 		return role;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+		Agent agent = (Agent) o;
+		return id != null && Objects.equals(id, agent.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
 	}
 }

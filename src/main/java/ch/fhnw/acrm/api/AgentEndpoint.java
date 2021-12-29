@@ -1,5 +1,6 @@
 package ch.fhnw.acrm.api;
 
+import ch.fhnw.acrm.data.domain.Event;
 import ch.fhnw.acrm.data.domain.Media;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,5 +52,18 @@ public class AgentEndpoint {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
         return ResponseEntity.ok(agent);
+    }
+
+    @PutMapping(path = "/followAgent/{followeeID}", produces = "application/json")
+    public ResponseEntity<Agent> putFollow(@PathVariable(value = "followeeID") String followeeID) {
+        Agent follower;
+        try {
+            follower = agentService.getCurrentAgent();
+            Agent followee = agentService.getAgentByID(Long.valueOf(followeeID));
+            agentService.putFollow(follower, followee);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
+        }
+        return ResponseEntity.accepted().body(follower);
     }
 }
