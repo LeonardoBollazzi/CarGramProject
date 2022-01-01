@@ -87,4 +87,15 @@ public class AgentService {
         }
         return follower;
     }
+
+    public Agent editBio(Agent agent, String bio) {
+        try {
+            agent.setBio(bio);
+            agentRepository.save(agent);
+
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
+        }
+        return agent;
+    }
 }

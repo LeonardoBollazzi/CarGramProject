@@ -1,8 +1,7 @@
 package ch.fhnw.acrm.api;
 
-import ch.fhnw.acrm.data.domain.Event;
-import ch.fhnw.acrm.data.domain.Media;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +51,20 @@ public class AgentEndpoint {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
         return ResponseEntity.ok(agent);
+    }
+
+    @PutMapping(path = "/editBio/", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Agent> editBio(@RequestBody String biography) {
+        Agent agent;
+        try {
+            JSONObject bio = new JSONObject(biography);
+            biography= bio.getString("bio");
+            agent = agentService.getCurrentAgent();
+            agent = agentService.editBio(agent, biography);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
+        }
+        return ResponseEntity.accepted().body(agent);
     }
 
     @PutMapping(path = "/followAgent/{followeeID}", produces = "application/json")
