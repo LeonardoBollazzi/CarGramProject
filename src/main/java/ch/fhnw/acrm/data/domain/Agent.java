@@ -30,6 +30,8 @@ public class Agent {
 	private String email;
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // only create object property from JSON
 	private String password;
+	@Column(name = "bio")
+	private String bio;
 	@JsonIgnore
 	private String role = "USER";
 	@Transient // will not be stored in DB
@@ -43,6 +45,14 @@ public class Agent {
 			joinColumns = @JoinColumn(name = "Follower_ID", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "Followee_ID", referencedColumnName = "id"))
 	private Set<Agent> agentFollows = new LinkedHashSet<>();
+
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
 
 	public Set<Agent> getAgentFollows() {
 		return agentFollows;

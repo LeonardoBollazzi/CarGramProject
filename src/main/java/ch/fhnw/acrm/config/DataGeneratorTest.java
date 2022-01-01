@@ -25,6 +25,7 @@ public class DataGeneratorTest {
         agentUser.setEmail("user@user.com");
         agentUser.setPassword("password");
         agentUser.setName("user");
+        agentUser.setBio("Hi I am user");
         agentService.saveAgent(agentUser);
     }
 }
