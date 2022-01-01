@@ -1,0 +1,6 @@
+.btn-lg, .btn-group-lg > .btn {
+  padding: .5rem 1.2rem;
+  font-size: 1.75rem;
+  border-radius: 2em;
+}
+
