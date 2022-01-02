@@ -125,6 +125,20 @@ function searchAllAgent(name, callback) {
     });
 }
 
+function ifFollow(ID, callback) {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: serviceEndpointURL + "/api/ifFollow/" + ID,
+        success: function (data) {
+            callback(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+            callback(0);
+        }
+    });
+}
 function sss(callback) {
     var x = document.getElementById("searchedUser")
     x.innerText = "K";

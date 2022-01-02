@@ -52,6 +52,11 @@ public class AgentEndpoint {
         return ResponseEntity.ok(agent);
     }
 
+    @GetMapping(path = "/ifFollow/{followeeID}", produces = "application/json")
+    public int getIfFollows(@PathVariable(value = "followeeID") String followeeID) {
+        return agentService.ifFollows(Integer.parseInt(followeeID));
+    }
+
     @PutMapping(path = "/editBio/", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Agent> editBio(@RequestBody String biography) {
         Agent agent;

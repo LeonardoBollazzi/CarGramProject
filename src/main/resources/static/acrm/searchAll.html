@@ -72,20 +72,33 @@
     <script>
         $(document).ready(function(){
             $("#SearchButton").click(function(){
-                var v = "user";
-                var r;
-                searchAllAgent("s", function (result){
+                var v = "leo";
+                searchAllAgent(v, function (result){
                     if(result === 0){
                         $("#searchedUser").text("Name not found!")
                         $("#avatarPicture").css('background-image', "url('../assets/img/No%20Picture.png')")
                     }
                     else {
+
                         $("#searchedUser").text(result["name"])
+                        $("#avatarPicture").css('background-image', "url('../assets/img/avatars/avatar.jpg')")
+                        ifFollow(result["id"], function (isFollowing){
+                            if(!(isFollowing === 1)){
+                                var l = document.getElementById("followButton")
+                                l.classList.remove("btn-outline-primary")
+                                l.classList.add('btn-primary');
+                                l.innerText = "Follow";
+                            }
+                            else{
+                                var c = document.getElementById("followButton")
+                                c.classList.remove("btn-primary")
+                                c.classList.add('btn-outline-primary');
+                                c.innerText = "Connected";
+                            }
+                        })
                     }
                 })
             });
-
-
         });
 
     </script>
