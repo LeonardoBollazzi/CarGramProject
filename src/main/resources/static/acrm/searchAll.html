@@ -36,24 +36,8 @@
                         <div class="item">
                             <div class="row">
                                 <div class="col-md-6 offset-xl-0">
-                                    <div class="border rounded-pill avatar" id="avatarPicture" style="height: 75px;width: 75px;background: url(../assets/img/avatars/avatar.jpg) top / contain repeat;"></div>
+                                    <div class="border rounded-pill avatar" id="avatarPicture" style="height: 75px;width: 75px;background: url(../assets/img/LogoNew.png) top / contain repeat;"></div>
                                     <h3 id="searchedUser">Web Developer</h3><button class="btn btn-outline-primary" id="followButton" type="button">Connected</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="row">
-                                <div class="col-md-6 offset-xl-0">
-                                    <div class="border rounded-pill avatar" style="height: 75px;width: 75px;background: url(../assets/img/avatars/avatar.jpg) top / contain repeat;"></div>
-                                    <h3>Web Developer</h3><button class="btn btn-primary" type="button">Follow</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="row">
-                                <div class="col-md-6 offset-xl-0">
-                                    <div class="border rounded-pill avatar" style="height: 75px;width: 75px;background: url(../assets/img/avatars/avatar.jpg) top / contain repeat;"></div>
-                                    <h3>Web Developer</h3><button class="btn btn-primary" type="button">Connected</button>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +66,7 @@
                     else {
                         document.getElementById("followButton").style.visibility = "visible";
                         $("#searchedUser").text(result["name"])
-                        $("#avatarPicture").css('background-image', "url('../assets/img/avatars/avatar.jpg')")
+                        $("#avatarPicture").css('background-image', "url('../assets/img/LogoNew.png')")
                         ifFollow(result["id"], function (isFollowing){
                             if(!(isFollowing === 1)){
                                 var l = document.getElementById("followButton")
