@@ -12,7 +12,6 @@ import ch.fhnw.acrm.data.domain.Agent;
 
 import javax.validation.ConstraintViolationException;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api")
