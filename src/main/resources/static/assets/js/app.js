@@ -109,3 +109,27 @@ function getAgent(callback) {
         }
     });
 }
+
+function searchAllAgent(callback) {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: serviceEndpointURL + "/api/registration/",
+        success: function (data) {
+            callback(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+        }
+    });
+}
+
+function sss(callback) {
+    var x = document.getElementById("searchedUser")
+    x.innerText = "K";
+    var l = document.getElementById("followButton")
+    l.classList.remove("btn-outline-primary")
+    l.classList.add('btn-primary');
+    l.innerText = "Follow";
+    callback("d");
+}

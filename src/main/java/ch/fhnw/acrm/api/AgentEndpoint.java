@@ -42,7 +42,7 @@ public class AgentEndpoint {
     }
 
     @GetMapping(path = "/registration/{agentName}", produces = "application/json")
-    public ResponseEntity<Agent> getNameMedia(@PathVariable(value = "agentName") String agentName) {
+    public ResponseEntity<Agent> getNameAgent(@PathVariable(value = "agentName") String agentName) {
         Agent agent = null;
         try {
             agent = agentService.getSpecificAgent(agentName);
