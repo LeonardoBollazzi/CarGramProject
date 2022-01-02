@@ -110,16 +110,17 @@ function getAgent(callback) {
     });
 }
 
-function searchAllAgent(callback) {
+function searchAllAgent(name, callback) {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: serviceEndpointURL + "/api/registration/",
+        url: serviceEndpointURL + "/api/registration/" + name,
         success: function (data) {
             callback(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR, textStatus, errorThrown);
+            callback(0);
         }
     });
 }
@@ -131,5 +132,6 @@ function sss(callback) {
     l.classList.remove("btn-outline-primary")
     l.classList.add('btn-primary');
     l.innerText = "Follow";
+
     callback("d");
 }
