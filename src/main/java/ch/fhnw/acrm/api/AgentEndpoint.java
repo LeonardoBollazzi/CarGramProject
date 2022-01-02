@@ -74,6 +74,7 @@ public class AgentEndpoint {
     @PutMapping(path = "/followAgent/{followeeID}", produces = "application/json")
     public ResponseEntity<Agent> putFollow(@PathVariable(value = "followeeID") String followeeID) {
         Agent follower;
+        System.out.println(followeeID);
         try {
             follower = agentService.getCurrentAgent();
             Agent followee = agentService.getAgentByID(Long.valueOf(followeeID));

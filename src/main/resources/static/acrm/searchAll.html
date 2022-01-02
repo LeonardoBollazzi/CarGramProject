@@ -100,6 +100,26 @@
                     }
                 })
             });
+
+            $("#followButton").click(function (){
+                var v = $("#searchedUser").text();
+                searchAllAgent(v, function (result){
+                    putFollow(result["id"], function (r){
+                        if(document.getElementById("followButton").innerText === "Follow"){
+                            var c = document.getElementById("followButton")
+                            c.classList.remove("btn-primary")
+                            c.classList.add('btn-outline-primary');
+                            c.innerText = "Connected";
+                        }
+                        else{
+                            var l = document.getElementById("followButton")
+                            l.classList.remove("btn-outline-primary")
+                            l.classList.add('btn-primary');
+                            l.innerText = "Follow";
+                        }
+                    })
+                })
+            });
         });
 
     </script>
