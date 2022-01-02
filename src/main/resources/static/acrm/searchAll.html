@@ -37,7 +37,7 @@
                             <div class="row">
                                 <div class="col-md-6 offset-xl-0">
                                     <div class="border rounded-pill avatar" id="avatarPicture" style="height: 75px;width: 75px;background: url(../assets/img/LogoNew.png) top / contain repeat;"></div>
-                                    <h3 id="searchedUser">Web Developer</h3><button class="btn btn-outline-primary" id="followButton" type="button">Connected</button>
+                                    <h3 id="searchedUser"></h3><button class="btn btn-outline-primary" id="followButton" hidden="hidden" type="button">Connected</button>
                                 </div>
                             </div>
                         </div>
@@ -64,6 +64,7 @@
                         document.getElementById("followButton").style.visibility = "hidden";
                     }
                     else {
+                        $('#followButton').removeAttr('hidden');
                         document.getElementById("followButton").style.visibility = "visible";
                         $("#searchedUser").text(result["name"])
                         $("#avatarPicture").css('background-image', "url('../assets/img/LogoNew.png')")
