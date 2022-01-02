@@ -1,4 +1,4 @@
-function postCustomer(customer, callbackSuccess, callbackError) {
+/*function postCustomer(customer, callbackSuccess, callbackError) {
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -15,7 +15,7 @@ function postCustomer(customer, callbackSuccess, callbackError) {
             callbackError(jqXHR.responseJSON.message);
         }
     });
-}
+}*/
 
 function getCustomer(customerID, callback) {
     $.ajax({
@@ -45,7 +45,7 @@ function getCustomers(callback) {
     });
 }
 
-function putCustomer(customerID, customer, callbackSuccess, callbackError) {
+/*function putCustomer(customerID, customer, callbackSuccess, callbackError) {
     $.ajax({
         type: "PUT",
         contentType: "application/json",
@@ -62,7 +62,7 @@ function putCustomer(customerID, customer, callbackSuccess, callbackError) {
             callbackError(jqXHR.responseJSON.message);
         }
     });
-}
+}*/
 
 function deleteCustomer(customerID, callback) {
     $.ajax({
@@ -93,5 +93,19 @@ function getCustomerJSON(id, name, email, mobile) {
         "name": name,
         "email": email,
         "mobile": mobile
+    });
+}
+
+function getAgent(callback) {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: serviceEndpointURL + "/api/registration/",
+        success: function (data) {
+            callback(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+        }
     });
 }

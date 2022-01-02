@@ -94,7 +94,7 @@
             $(loadUser());
 
             function loadUser(){
-                getProfile(function (result){
+                getAgent(function (result){
                     $("#UserName").text(result["name"]),
                     $("#Biography").val(result["bio"])
                 })
