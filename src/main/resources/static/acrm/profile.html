@@ -31,13 +31,13 @@
         <section class="portfolio-block block-intro">
             <div class="container">
                 <div class="dropdown" style="text-align: right;"><button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">More</button>
-                    <div class="dropdown-menu"><a class="dropdown-item" href="#">Search Connections</a><a class="dropdown-item" href="#">Edit Bio</a><a class="dropdown-item" href="#">Log Out</a></div>
+                    <div class="dropdown-menu"><a class="dropdown-item" href="#">Search Connections</a><a class="dropdown-item" href="#" id="editBio">Edit Bio</a><a class="dropdown-item" href="#">Log Out</a></div>
                 </div>
             </div>
             <div class="container">
                 <div class="avatar" style="background: url(../assets/img/LogoNew.png);background-size: contain;"></div>
                 <h1 class="text-center" id="UserName" style="margin-bottom: 63px;">"User name"</h1>
-                <div class="about-me"><textarea readonly id="Biography" class="form-control-lg" style="width: 800px;height: 100px;" placeholder="My Bio" rows="3"></textarea><a id = "follow" class="btn btn-outline-primary" role="button" href="#">Ok</a></div>
+                <div class="about-me"><textarea readonly id="Biography" class="form-control-lg" style="width: 800px;height: 100px;" placeholder="My Bio" rows="3"></textarea><a id = "saveBioButton" class="btn btn-outline-primary" role="button" href="#">Save</a></div>
             </div>
         </section>
         <section class="portfolio-block photography">
@@ -96,9 +96,23 @@
             function loadUser(){
                 getAgent(function (result){
                     $("#UserName").text(result["name"]),
-                    $("#Biography").val(result["bio"])
+                    $("#Biography").val(result["bio"]),
+                    document.getElementById("saveBioButton").style.visibility = "hidden";
                 })
             }
+
+            $("#editBio").click(function () {
+                $("#Biography").removeAttr('readonly');
+                document.getElementById("saveBioButton").style.visibility = "visible";
+            });
+
+            $("#saveBioButton").click(function () {
+                document.getElementById("saveBioButton").style.visibility = "hidden";
+                $('#Biography').prop('readonly', true);
+                putNewBio(getBioJSON($('#Biography').val()),function (result){
+
+                })
+            });
         });
 
 
