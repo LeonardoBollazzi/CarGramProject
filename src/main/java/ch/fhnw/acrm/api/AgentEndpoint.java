@@ -52,6 +52,11 @@ public class AgentEndpoint {
         return ResponseEntity.ok(agent);
     }
 
+    @GetMapping(path = "/ifFollow/{followeeID}", produces = "application/json")
+    public int getIfFollows(@PathVariable(value = "followeeID") String followeeID) {
+        return agentService.ifFollows(Integer.parseInt(followeeID));
+    }
+
     @PutMapping(path = "/editBio/", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Agent> editBio(@RequestBody String biography) {
         Agent agent;
@@ -69,6 +74,7 @@ public class AgentEndpoint {
     @PutMapping(path = "/followAgent/{followeeID}", produces = "application/json")
     public ResponseEntity<Agent> putFollow(@PathVariable(value = "followeeID") String followeeID) {
         Agent follower;
+        System.out.println(followeeID);
         try {
             follower = agentService.getCurrentAgent();
             Agent followee = agentService.getAgentByID(Long.valueOf(followeeID));

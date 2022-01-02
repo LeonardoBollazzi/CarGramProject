@@ -125,13 +125,34 @@ function searchAllAgent(name, callback) {
     });
 }
 
-function sss(callback) {
-    var x = document.getElementById("searchedUser")
-    x.innerText = "K";
-    var l = document.getElementById("followButton")
-    l.classList.remove("btn-outline-primary")
-    l.classList.add('btn-primary');
-    l.innerText = "Follow";
+function ifFollow(ID, callback) {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: serviceEndpointURL + "/api/ifFollow/" + ID,
+        success: function (data) {
+            callback(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+            callback(0);
+        }
+    });
+}
 
-    callback("d");
+function putFollow(ID, callback){
+    $.ajax({
+        type: "PUT",
+        contentType: "json",
+        headers: {
+            "X-XSRF-TOKEN": getCookie("XSRF-TOKEN")
+        },
+        url: serviceEndpointURL + "/api/followAgent/" + ID,
+        success: function (data) {
+            callback(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+        }
+    });
 }

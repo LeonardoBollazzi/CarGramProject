@@ -98,4 +98,23 @@ public class AgentService {
         }
         return agent;
     }
+
+    public int ifFollows(int followeeID) {
+        int isFollowing = 0;
+        try {
+            Agent follower = getCurrentAgent();
+            Set<Agent> followList = follower.getAgentFollows();
+            Set<Agent> tempFollowList = new HashSet<>(followList);
+            tempFollowList.removeIf(agent1 -> followeeID == agent1.getId());
+
+            if (followList.size() - tempFollowList.size() > 0) {
+                isFollowing = 1;
+            }
+
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
+        }
+        return isFollowing;
+    }
+
 }
