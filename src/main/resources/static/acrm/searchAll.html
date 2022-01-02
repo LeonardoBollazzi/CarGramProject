@@ -71,15 +71,16 @@
     <script src="../assets/js/webapp.js"></script>
     <script>
         $(document).ready(function(){
-            $("#SearchButton").click(function(){
-                var v = "leo";
+            $("#SearchButton").click(function (qualifiedName, value){
+                var v = $("#searchInput").val();
                 searchAllAgent(v, function (result){
                     if(result === 0){
                         $("#searchedUser").text("Name not found!")
                         $("#avatarPicture").css('background-image', "url('../assets/img/No%20Picture.png')")
+                        document.getElementById("followButton").style.visibility = "hidden";
                     }
                     else {
-
+                        document.getElementById("followButton").style.visibility = "visible";
                         $("#searchedUser").text(result["name"])
                         $("#avatarPicture").css('background-image', "url('../assets/img/avatars/avatar.jpg')")
                         ifFollow(result["id"], function (isFollowing){
