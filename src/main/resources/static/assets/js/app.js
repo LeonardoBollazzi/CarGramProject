@@ -179,7 +179,6 @@ function putNewBio(bio, callback){
         }
     });
 }
-
 function getAgentMedia(callback) {
     $.ajax({
         type: "GET",
@@ -191,6 +190,20 @@ function getAgentMedia(callback) {
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR, textStatus, errorThrown);
             callback(0);
+        }
+    });
+}
+function getMediaLikes(mediaID) {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: serviceEndpointURL + "/api/likeMedia/" + mediaID,
+        success: function (data) {
+            return data;
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+            return 0;
         }
     });
 }
