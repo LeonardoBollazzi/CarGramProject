@@ -42,7 +42,7 @@
         </section>
         <section class="portfolio-block photography">
             <div class="container">
-                <div class="row">
+                <div class="row" id="profileMediaRow">
                     <div class="col-md-6 col-lg-4">
                         <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover" src="../assets/img/No%20Picture.png" alt="Card Image"></a>
                             <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text"></span></a></div>
@@ -78,7 +78,7 @@
         </section>
         <section class="portfolio-block call-to-action border-bottom">
             <div class="container">
-                <div class="d-flex justify-content-center align-items-center content"><button class="btn btn-outline-primary btn-lg" type="button" style="width: 115px;"><i class="fa fa-plus"></i></button></div>
+                <div class="d-flex justify-content-center align-items-center content"><button class="btn btn-outline-primary btn-lg" id="plusButtonProfile" type="button" style="width: 115px;"><i class="fa fa-plus"></i></button></div>
             </div>
         </section>
     </main>
@@ -92,12 +92,61 @@
     <script>
         $(document).ready(function(){
             $(loadUser());
-
             function loadUser(){
                 getAgent(function (result){
                     $("#UserName").text(result["name"]),
                     $("#Biography").val(result["bio"]),
                     document.getElementById("saveBioButton").style.visibility = "hidden";
+                })
+            }
+
+            $(loadMedia(6));
+            function loadMedia(Nr){
+                getAgentMedia(function (result){
+                    // If between 1 and 6 picture posted
+                    if(Object.keys(result).length > 0 && Object.keys(result).length <= Nr) {
+                        $("#profileMediaRow").empty();
+                        var mediaCount = Object.keys(result).length;
+                        var emptyCount = Nr-mediaCount;
+                        for (let i = mediaCount; 0 < i; i--) {
+                            let image = result[(i-1)]["url"];
+                            var html= `<div class="col-md-6 col-lg-4">
+                                        <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover"  alt="Card Image" src="${image}"></a>
+                                                <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text"></span></a></div>
+                                            </div>
+                                        </div>`;
+
+                            $("#profileMediaRow").append(html);
+                        }
+                        for (let i = 0; i < emptyCount; i++) {
+                            let image = "../assets/img/No%20Picture.png"
+                            var html= `<div class="col-md-6 col-lg-4">
+                                        <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover"  alt="Card Image" src="${image}"></a>
+                                                <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text"></span></a></div>
+                                            </div>
+                                        </div>`;
+                            $("#profileMediaRow").append(html);
+                        }
+                    }
+                    // If more than 6 picture posted
+                    else if(Object.keys(result).length > Nr){
+                        $("#profileMediaRow").empty();
+                        let countOfPictures = Object.keys(result).length;
+                        let countDifference = countOfPictures-Nr;
+                        for (let i = countOfPictures; countDifference < i; i--) {
+                            let image = result[(i-1)]["url"];
+                            var html= `<div class="col-md-6 col-lg-4">
+                                        <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover"  alt="Card Image" src="${image}"></a>
+                                                <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text"></span></a></div>
+                                            </div>
+                                        </div>`;
+                            $("#profileMediaRow").append(html);
+                        }
+                    }
+                    // If 0 Media posted
+                    else {
+
+                    }
                 })
             }
 
@@ -112,6 +161,9 @@
                 putNewBio(getBioJSON($('#Biography').val()),function (result){
 
                 })
+            });
+            $("#plusButtonProfile").click(function () {
+                loadMedia(12)
             });
         });
 

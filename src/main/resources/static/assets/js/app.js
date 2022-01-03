@@ -179,3 +179,18 @@ function putNewBio(bio, callback){
         }
     });
 }
+
+function getAgentMedia(callback) {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: serviceEndpointURL + "/api/mediaHandling/",
+        success: function (data) {
+            callback(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+            callback(0);
+        }
+    });
+}
