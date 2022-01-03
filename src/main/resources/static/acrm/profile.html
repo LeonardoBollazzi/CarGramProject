@@ -126,7 +126,6 @@
                                                 <div class="card-body"><a class="btn btn-primary like-counter" onclick ="myFunction(${mediaID})" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text">${likes}</span></a></div>
                                             </div>
                                         </div>`;
-
                             $("#profileMediaRow").append(html);
                         }
                         for (let i = 0; i < emptyCount; i++) {
@@ -193,7 +192,7 @@
                 window.location.replace("/profilePage/searchFollower");
             });
             $("#Explore").click(function () {
-                window.location.replace("/profilePage/searchFollower");
+                window.location.replace("/explore");
             });
             $("#Profile").click(function () {
                 window.location.replace("/profilePage");

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
-    <link rel="stylesheet" href="../assets/css/Like-Button.css">
     <link rel="stylesheet" href="../assets/css/Picture.css">
     <link rel="stylesheet" href="../assets/css/untitled.css">
 </head>
@@ -33,7 +32,7 @@
             <section>
                 <div class="container">
                     <div class="row"><div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
-    <div class="bg-light border rounded shadow card"><img class="card-img-top" src="Stores/Stores1.png" />
+    <div class="bg-light border rounded shadow card"><img class="card-img-top" src="../assets/img/No%20Picture.png" />
         <div class="card-body">
             <h3 class="card-title" style="font-family: Antic, sans-serif;color: rgb(81,87,94);">STORES</h3>
             <h5 class="card-sub-title" style="font-family: Antic, sans-serif;color: #38ae53;">Open in web</h5>
@@ -42,7 +41,7 @@
         </div>
     </div>
 </div><div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;margin-right: 0px;margin-bottom: 0px;">
-    <div class="bg-light border rounded shadow card"><img class="card-img-top" src="Garages/Garage1.png" />
+    <div class="bg-light border rounded shadow card"><img class="card-img-top" src="../assets/img/No%20Picture.png" />
         <div class="card-body">
             <h3 class="card-title" style="font-family: Antic, sans-serif;color: rgb(81,87,94);">GARAGES</h3>
             <h5 class="card-sub-title" style="font-family: Antic, sans-serif;color: #38ae53;">Open in web</h5>
@@ -51,7 +50,7 @@
         </div>
     </div>
 </div><div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
-    <div class="bg-light border rounded shadow card"><img class="card-img-top" src="Services/Services1.png" />
+    <div class="bg-light border rounded shadow card"><img class="card-img-top" src="../assets/img/No%20Picture.png" />
         <div class="card-body">
             <h3 class="card-title" style="font-family: Antic, sans-serif;color: rgb(81,87,94);">SERVICES</h3>
             <h5 class="card-sub-title" style="font-family: Antic, sans-serif;color: #38ae53;">Open in web</h5>
@@ -64,7 +63,7 @@
             </section>
         </section><section class="portfolio-block photography">
     <div class="container">
-        <div class="row">
+        <div class="row", id="profileExploreRow">
             <div class="col-md-6 col-lg-4">
                 <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover" src="../assets/img/No%20Picture.png" alt="Card Image"></a>
                     <div class="card-body"><a class="btn btn-primary like-counter" hidden="hidden" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text"></span></a></div>
@@ -100,7 +99,7 @@
 </section>
         <section class="portfolio-block call-to-action border-bottom">
             <div class="container">
-                <div class="d-flex justify-content-center align-items-center content"><button class="btn btn-outline-primary btn-lg" type="button" style="width: 115px;"><i class="fa fa-plus"></i></button></div>
+                <div class="d-flex justify-content-center align-items-center content"><button class="btn btn-outline-primary btn-lg" id="plusButtonMedia" type="button" style="width: 115px;"><i class="fa fa-plus"></i></button></div>
             </div>
         </section>
     </main>
@@ -111,6 +110,96 @@
     <script src="../assets/js/theme.js"></script>
     <script src="../assets/js/app.js"></script>
     <script src="../assets/js/webapp.js"></script>
+    <script src="../assets/js/explore.js"></script>
+    <script>
+        function myFunction(ID) {
+            console.log(ID);
+            putMediaLike(ID);
+            window. location. reload()
+        }
+    </script>
+    <script>
+        $(document).ready(function(){
+
+            $(loadMedia(6));
+            function loadMedia(Nr){
+                getExploreMedia(function (result){
+                    // If between 1 and 6 picture posted
+                    if(Object.keys(result).length > 0 && Object.keys(result).length <= Nr) {
+                        $("#profileExploreRow").empty();
+                        var mediaCount = Object.keys(result).length;
+                        var emptyCount = Nr-mediaCount;
+                        for (let i = mediaCount; 0 < i; i--) {
+                            let image = result[(i-1)]["url"];
+                            let mediaID = result[(i-1)]["id"];
+                            let mediaLikes = result[(i-1)]["likes"];
+                            let likes = Object.keys(mediaLikes).length;
+                            var html= `<div class="col-md-6 col-lg-4">
+                                        <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover"  alt="Card Image" src="${image}"></a>
+                                                <div class="card-body"><a class="btn btn-primary like-counter" onclick ="myFunction(${mediaID})" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text">${likes}</span></a></div>
+                                            </div>
+                                        </div>`;
+
+                            $("#profileExploreRow").append(html);
+                        }
+                        for (let i = 0; i < emptyCount; i++) {
+                            let image = "../assets/img/No%20Picture.png"
+                            var html= `<div class="col-md-6 col-lg-4">
+                                        <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover"  alt="Card Image" src="${image}"></a>
+                                                <div class="card-body"><a class="btn btn-primary like-counter" hidden="hidden" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text"></span></a></div>
+                                            </div>
+                                        </div>`;
+                            $("#profileExploreRow").append(html);
+                        }
+                    }
+                    // If more than 6 picture posted
+                    else if(Object.keys(result).length > Nr){
+                        $("#profileExploreRow").empty();
+                        let countOfPictures = Object.keys(result).length;
+                        let countDifference = countOfPictures-Nr;
+                        for (let i = countOfPictures; countDifference < i; i--) {
+                            let image = result[(i-1)]["url"];
+                            let mediaID = result[(i-1)]["id"];
+                            let mediaLikes = result[(i-1)]["likes"];
+                            let likes = Object.keys(mediaLikes).length;
+                            var html= `<div class="col-md-6 col-lg-4">
+                                        <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover"  alt="Card Image" src="${image}"></a>
+                                                <div class="card-body"><a class="btn btn-primary like-counter" onclick ="myFunction(${mediaID})" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text">${likes}</span></a></div>
+                                            </div>
+                                        </div>`;
+
+                            $("#profileMediaRow").append(html);
+                        }
+                    }
+                    // If 0 Media posted
+                    else {
+
+                    }
+                })
+            }
+
+            $("#plusButtonMedia").click(function () {
+                loadMedia(12)
+            });
+            $("#Home").click(function () {
+                window.location.replace("/profilePage/searchFollower");
+            });
+            $("#Search").click(function () {
+                window.location.replace("/searchAll");
+            });
+            $("#Events").click(function () {
+                window.location.replace("/profilePage/searchFollower");
+            });
+            $("#Explore").click(function () {
+                window.location.replace("/explore");
+            });
+            $("#Profile").click(function () {
+                window.location.replace("/profilePage");
+            });
+        });
+
+
+    </script>
 </body>
 
 </html>
