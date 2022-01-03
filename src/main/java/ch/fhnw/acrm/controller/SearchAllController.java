@@ -18,13 +18,4 @@ public class SearchAllController {
         return "acrm/searchAll.html";
     }
 
-    @GetMapping("/create")
-    public String getCustomerCreateView(){
-        return "../acrm/customerCreate.html";
-    }
-
-    @GetMapping("/edit")
-    public String getCustomerEditView(){
-        return "../acrm/customerEdit.html";
-    }
 }
