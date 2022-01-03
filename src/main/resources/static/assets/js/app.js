@@ -193,17 +193,17 @@ function getAgentMedia(callback) {
         }
     });
 }
-function getMediaLikes(mediaID) {
+function getMediaLikes(mediaID,likes) {
     $.ajax({
         type: "GET",
         dataType: "json",
         url: serviceEndpointURL + "/api/likeMedia/" + mediaID,
         success: function (data) {
-            return data;
+            likes (data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR, textStatus, errorThrown);
-            return 0;
+            likes = 0;
         }
     });
 }
