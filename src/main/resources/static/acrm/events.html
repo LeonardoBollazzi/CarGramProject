@@ -32,7 +32,7 @@
 
   <div class="row">
     <div class="col-lg-8 mx-auto">
-      <ul class="list-group shadow">
+      <ul class="list-group shadow" id="eventsGroup">
         <li class="list-group-item">
           <div class="media align-items-lg-center flex-column flex-lg-row p-3">
             <div class="media-body order-2 order-lg-1">
@@ -40,7 +40,8 @@
               <p class="font-italic text-muted mb-0 small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit fuga autem maiores necessitatibus.</p>
               <div class="d-flex align-items-center justify-content-between mt-1">
               </div>
-            </div><img src="CarEvent/CarEvents1.png" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+            </div><img src="../assets/img/car4.jpeg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+              <div class="card-body"><a class="btn btn-primary like-counter" hidden="hidden" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-5" class="click-text"></span></a></div>
           </div>
         </li>
         <li class="list-group-item">
@@ -81,7 +82,7 @@
         </section>
         <section class="portfolio-block call-to-action border-bottom">
             <div class="container">
-                <div class="d-flex justify-content-center align-items-center content"><button class="btn btn-outline-primary btn-lg" type="button" style="width: 115px;"><i class="fa fa-plus"></i></button></div>
+                <div class="d-flex justify-content-center align-items-center content"><button class="btn btn-outline-primary btn-lg" type="button" id="plusButtonEvent" style="width: 115px;"><i class="fa fa-plus"></i></button></div>
             </div>
         </section>
     </main>
@@ -93,10 +94,99 @@
     <script src="../assets/js/app.js"></script>
     <script src="../assets/js/webapp.js"></script>
     <script src="../assets/js/explore.js"></script>
+    <script src="../assets/js/events.js"></script>
+    <script>
+        function myFunction(ID) {
+            console.log(ID);
+            putEventLike(ID);
+            window.location.reload()
+        }
+    </script>
     <script>
         $(document).ready(function(){
 
+            $(loadMedia(6));
+            function loadMedia(Nr){
+                getEvents(function (result){
+                    // If between 1 and 6 picture posted
+                    if(Object.keys(result).length > 0 && Object.keys(result).length <= Nr) {
+                        $("#eventsGroup").empty();
+                        var mediaCount = Object.keys(result).length;
+                        var emptyCount = Nr-mediaCount;
+                        for (let i = mediaCount; 0 < i; i--) {
+                            let image = result[(i-1)]["url"];
+                            let mediaID = result[(i-1)]["id"];
+                            let eventCaption = result[(i-1)]["caption"];
+                            let mediaLikes = result[(i-1)]["likes"];
+                            let likes = Object.keys(mediaLikes).length;
+                            var html= `<li class="list-group-item">
+                                          <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                                            <div class="media-body order-2 order-lg-1">
+                                              <h5 class="mt-0 font-weight-bold mb-2">Event Description</h5>
+                                              <p class="font-italic text-muted mb-0 small">${eventCaption}</p>
+                                              <div class="d-flex align-items-center justify-content-between mt-1">
+                                              </div>
+                                            </div><img src="${image}" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                                              <div class="card-body"><a class="btn btn-primary like-counter" onclick ="myFunction(${mediaID})" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-5" class="click-text">${likes}</span></a></div>
+                                          </div>
+                                        </li>`;
 
+                            $("#eventsGroup").append(html);
+                        }
+                        for (let i = 0; i < emptyCount; i++) {
+                            let image = "../assets/img/No%20Picture.png"
+                            var html= `<li class="list-group-item">
+                                          <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                                            <div class="media-body order-2 order-lg-1">
+                                              <h5 class="mt-0 font-weight-bold mb-2">Event Description</h5>
+                                              <p class="font-italic text-muted mb-0 small">There are currently no further events</p>
+                                              <div class="d-flex align-items-center justify-content-between mt-1">
+                                              </div>
+                                            </div><img src="${image}" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                                              <div class="card-body"><a class="btn btn-primary like-counter" hidden="hidden" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-5" class="click-text">${likes}</span></a></div>
+                                          </div>
+                                        </li>`;
+                            $("#eventsGroup").append(html);
+                        }
+                    }
+                    // If more than 6 picture posted
+                    else if(Object.keys(result).length > Nr){
+                        $("#eventsGroup").empty();
+                        let countOfPictures = Object.keys(result).length;
+                        let countDifference = countOfPictures-Nr;
+                        for (let i = countOfPictures; countDifference < i; i--) {
+                            let image = result[(i-1)]["url"];
+                            let mediaID = result[(i-1)]["id"];
+                            let eventCaption = result[(i-1)]["caption"];
+                            let mediaLikes = result[(i-1)]["likes"];
+                            let likes = Object.keys(mediaLikes).length;
+                            var html= `<li class="list-group-item">
+                                          <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                                            <div class="media-body order-2 order-lg-1">
+                                              <h5 class="mt-0 font-weight-bold mb-2">Event Description</h5>
+                                              <p class="font-italic text-muted mb-0 small">${eventCaption}</p>
+                                              <div class="d-flex align-items-center justify-content-between mt-1">
+                                              </div>
+                                            </div><img src="${image}" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                                              <div class="card-body"><a class="btn btn-primary like-counter" onclick ="myFunction(${mediaID})" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-5" class="click-text">${likes}</span></a></div>
+                                          </div>
+                                        </li>`;
+
+                            $("#eventsGroup").append(html);
+                        }
+                    }
+                    // If 0 Media posted
+                    else {
+
+                    }
+                })
+            }
+            $("#plusButtonEvent").click(function () {
+                loadMedia(12)
+            });
+            $("#postEventButton").click(function () {
+                window.location.replace("/profilePage/searchFollower");
+            });
             $("#Home").click(function () {
                 window.location.replace("/profilePage/searchFollower");
             });

@@ -28,7 +28,7 @@ public class EventEndpoint {
 
     // Create new Event with Json as input
     @PostMapping(path = "/eventHandling", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Event> postMedia(@RequestBody String str) {
+    public ResponseEntity<Event> postEvent(@RequestBody String str) {
         Event event;
         try {
             Agent agent = agentService.getCurrentAgent();
@@ -52,13 +52,13 @@ public class EventEndpoint {
 
     // Returns all Events in the system / No Input / Json as Output
     @GetMapping(path = "/allEventHandling", produces = "application/json")
-    public List<Event> getMedia() {
+    public List<Event> getEvents() {
         return eventService.getAllEvent();
     }
 
     // Returns all Events from current User (Must be logged in) / No Input / Json as Output
     @GetMapping(path = "/eventHandling", produces = "application/json")
-    public List<Event> getAgentMedia() {
+    public List<Event> getAgentEvent() {
         Agent agent = agentService.getCurrentAgent();
         Long agentId = agent.getId();
         return eventService.getAgentEvent(agentId);
@@ -66,7 +66,7 @@ public class EventEndpoint {
 
     // Returns all Events from a specific user / User name as input / Json as Output
     @GetMapping(path = "/eventHandling/{agentName}", produces = "application/json")
-    public ResponseEntity<List<Event>> getNameMedia(@PathVariable(value = "agentName") String agentName) {
+    public ResponseEntity<List<Event>> getNameEvent(@PathVariable(value = "agentName") String agentName) {
         List<Event> events = null;
         try {
             events = eventService.getNameEvent(agentName);
@@ -78,7 +78,7 @@ public class EventEndpoint {
 
     // Returns the likes from a specific Event / Event ID as input / long as Output
     @GetMapping(path = "/likeEvent/{eventID}", produces = "application/json")
-    public ResponseEntity<Long> getMediaLikes(@PathVariable(value = "eventID") String eventID) {
+    public ResponseEntity<Long> getEventLikes(@PathVariable(value = "eventID") String eventID) {
         long likesCount;
         try {
             Event event = eventService.getEventByID(Long.valueOf(eventID));
