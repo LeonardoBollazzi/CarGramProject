@@ -179,6 +179,22 @@ function putNewBio(bio, callback){
         }
     });
 }
+function putMediaLike(mediaID, callback){
+    $.ajax({
+        type: "PUT",
+        contentType: "application/json",
+        headers: {
+            "X-XSRF-TOKEN": getCookie("XSRF-TOKEN")
+        },
+        url: serviceEndpointURL + "/api/likeMedia/" + mediaID,
+        success: function (data) {
+            callback(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+        }
+    });
+}
 function getAgentMedia(callback) {
     $.ajax({
         type: "GET",
@@ -190,20 +206,6 @@ function getAgentMedia(callback) {
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR, textStatus, errorThrown);
             callback(0);
-        }
-    });
-}
-function getMediaLikes(mediaID,likes) {
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url: serviceEndpointURL + "/api/likeMedia/" + mediaID,
-        success: function (data) {
-            likes (data);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            likes = 0;
         }
     });
 }

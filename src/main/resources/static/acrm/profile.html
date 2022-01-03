@@ -45,32 +45,32 @@
                 <div class="row" id="profileMediaRow">
                     <div class="col-md-6 col-lg-4">
                         <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover" src="../assets/img/No%20Picture.png" alt="Card Image"></a>
-                            <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text"></span></a></div>
+                            <div class="card-body"><a class="btn btn-primary like-counter" hidden="hidden" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text"></span></a></div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover" src="../assets/img/No%20Picture.png" alt="Card Image"></a>
-                            <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-1" class="click-text"></span></a></div>
+                            <div class="card-body"><a class="btn btn-primary like-counter" hidden="hidden" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-1" class="click-text"></span></a></div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover" src="../assets/img/No%20Picture.png" alt="Card Image"></a>
-                            <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-2" class="click-text"></span></a></div>
+                            <div class="card-body"><a class="btn btn-primary like-counter" hidden="hidden" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-2" class="click-text"></span></a></div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover" src="../assets/img/No%20Picture.png" alt="Card Image"></a>
-                            <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-3" class="click-text"></span></a></div>
+                            <div class="card-body"><a class="btn btn-primary like-counter" hidden="hidden" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-3" class="click-text"></span></a></div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover" src="../assets/img/No%20Picture.png" alt="Card Image"></a>
-                            <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-4" class="click-text"></span></a></div>
+                            <div class="card-body"><a class="btn btn-primary like-counter" hidden="hidden" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-4" class="click-text"></span></a></div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover" src="../assets/img/No%20Picture.png" alt="Card Image"></a>
-                            <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-5" class="click-text"></span></a></div>
+                            <div class="card-body"><a class="btn btn-primary like-counter" hidden="hidden" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks-5" class="click-text"></span></a></div>
                         </div>
                     </div>
                 </div>
@@ -90,6 +90,13 @@
     <script src="../assets/js/app.js"></script>
     <script src="../assets/js/webapp.js"></script>
     <script>
+        function myFunction(ID) {
+            console.log(ID);
+            putMediaLike(ID);
+            window. location. reload()
+        }
+    </script>
+    <script>
         $(document).ready(function(){
             $(loadUser());
             function loadUser(){
@@ -99,6 +106,7 @@
                     document.getElementById("saveBioButton").style.visibility = "hidden";
                 })
             }
+
 
             $(loadMedia(6));
             function loadMedia(Nr){
@@ -110,11 +118,12 @@
                         var emptyCount = Nr-mediaCount;
                         for (let i = mediaCount; 0 < i; i--) {
                             let image = result[(i-1)]["url"];
-                            let mediaID = result[(i-1)]["likes"];
-                            let likes = Object.keys(mediaID).length;
+                            let mediaID = result[(i-1)]["id"];
+                            let mediaLikes = result[(i-1)]["likes"];
+                            let likes = Object.keys(mediaLikes).length;
                             var html= `<div class="col-md-6 col-lg-4">
                                         <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover"  alt="Card Image" src="${image}"></a>
-                                                <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text">${likes}</span></a></div>
+                                                <div class="card-body"><a class="btn btn-primary like-counter" onclick ="myFunction(${mediaID})" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text">${likes}</span></a></div>
                                             </div>
                                         </div>`;
 
@@ -137,11 +146,12 @@
                         let countDifference = countOfPictures-Nr;
                         for (let i = countOfPictures; countDifference < i; i--) {
                             let image = result[(i-1)]["url"];
-                            let mediaID = result[(i-1)]["likes"];
-                            let likes = Object.keys(mediaID).length;
+                            let mediaID = result[(i-1)]["id"];
+                            let mediaLikes = result[(i-1)]["likes"];
+                            let likes = Object.keys(mediaLikes).length;
                             var html= `<div class="col-md-6 col-lg-4">
                                         <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover"  alt="Card Image" src="${image}"></a>
-                                                <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text">${likes}</span></a></div>
+                                                <div class="card-body"><a class="btn btn-primary like-counter" onclick ="myFunction(${mediaID})" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text">${likes}</span></a></div>
                                             </div>
                                         </div>`;
 
