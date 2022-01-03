@@ -18,11 +18,11 @@
         <div class="container"><a class="navbar-brand logo" href="#">CarGram</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="Marketplace.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="Marketplace.html">Search</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="Marketplace.html">Explore</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="Marketplace.html">Events</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="Marketplace.html">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link active" id="Home" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" id="Search" href="#">Search</a></li>
+                    <li class="nav-item"><a class="nav-link active" id="Explore" href="#">Explore</a></li>
+                    <li class="nav-item"><a class="nav-link active" id="Events" href="#">Events</a></li>
+                    <li class="nav-item"><a class="nav-link active" id="Profile" href="#">Profile</a></li>
                 </ul>
             </div>
         </div>
@@ -188,7 +188,7 @@
                 window.location.replace("/searchAll");
             });
             $("#Events").click(function () {
-                window.location.replace("/profilePage/searchFollower");
+                window.location.replace("/events");
             });
             $("#Explore").click(function () {
                 window.location.replace("/explore");
