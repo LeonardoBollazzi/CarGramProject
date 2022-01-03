@@ -22,12 +22,12 @@ public class UserController {
 
     @GetMapping("/login")
     public String getLoginView() {
-        return "user/login.html";
+        return "acrm/login.html";
     }
 
     @GetMapping("/user/register")
     public String getRegisterView() {
-        return "register.html";
+        return "../acrm/register.html";
     }
 
     @PostMapping("/user/register")
