@@ -65,4 +65,14 @@ public class UserController {
     public ResponseEntity<Void> init() {
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/marketplace")
+    public String getMarketplaceView() {
+        return "acrm/marketplace.html";
+    }
+
+    @GetMapping("/events")
+    public String getEventsView() {
+        return "acrm/events.html";
+    }
 }
