@@ -124,7 +124,7 @@
                             let image = "../assets/img/No%20Picture.png"
                             var html= `<div class="col-md-6 col-lg-4">
                                         <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover"  alt="Card Image" src="${image}"></a>
-                                                <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text"></span></a></div>
+                                                <div class="card-body"><a class="btn btn-primary like-counter" hidden="hidden" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text"></span></a></div>
                                             </div>
                                         </div>`;
                             $("#profileMediaRow").append(html);
@@ -137,11 +137,14 @@
                         let countDifference = countOfPictures-Nr;
                         for (let i = countOfPictures; countDifference < i; i--) {
                             let image = result[(i-1)]["url"];
+                            let mediaID = result[(i-1)]["likes"];
+                            let likes = Object.keys(mediaID).length;
                             var html= `<div class="col-md-6 col-lg-4">
                                         <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover"  alt="Card Image" src="${image}"></a>
-                                                <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text"></span></a></div>
+                                                <div class="card-body"><a class="btn btn-primary like-counter" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text">${likes}</span></a></div>
                                             </div>
                                         </div>`;
+
                             $("#profileMediaRow").append(html);
                         }
                     }
