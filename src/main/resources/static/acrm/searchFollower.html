@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Search</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+    <link rel="stylesheet" href="../assets/css/Picture.css">
+    <link rel="stylesheet" href="../assets/css/untitled.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
+        <div class="container"><a class="navbar-brand logo" href="#">CarGram</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="SearchAll.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="SearchAll.html">Search</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="SearchAll.html">Explore</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="SearchAll.html">Event</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="SearchAll.html">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="page cv-page">
+        <section class="portfolio-block cv">
+            <div class="container">
+                <div class="work-experience group">
+                    <div class="heading"><input class="border rounded-0 form-control-lg" id="searchInputFollow" type="search" placeholder="Search"><button class="btn btn-primary border rounded-0" id="SearchButtonFollow" type="button" style="height: 48px;margin-bottom: 7px;"><i class="fa fa-search"></i></button></div>
+                    <div class="item">
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-md-6 offset-xl-0">
+                                    <div class="border rounded-pill avatar" id="avatarPictureFollow" style="height: 75px;width: 75px;background: url(../assets/img/LogoNew.png) top / contain repeat;"></div>
+                                    <h3 id="searchedUserFollow"></h3><button class="btn btn-outline-primary" id="followButtonFollow" hidden="hidden" type="button">Connected</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/webapp.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#SearchButtonFollow").click(function (qualifiedName, value){
+                var v = $("#searchInputFollow").val();
+                searchAllAgent(v, function (result){
+                    if(result === 0){
+                        $("#searchedUserFollow").text("Name not found!")
+                        $("#avatarPictureFollow").css('background-image', "url('../assets/img/No%20Picture.png')")
+                        document.getElementById("followButtonFollow").style.visibility = "hidden";
+                    }
+                    else {
+                        $('#followButtonFollow').removeAttr('hidden');
+                        ifFollow(result["id"], function (isFollowing){
+                            if(!(isFollowing === 1)){
+                                $("#searchedUserFollow").text("Name not found!")
+                                $("#avatarPictureFollow").css('background-image', "url('../assets/img/No%20Picture.png')")
+                                document.getElementById("followButtonFollow").style.visibility = "hidden";
+                            }
+                            else{
+                                $("#searchedUserFollow").text(result["name"])
+                                $("#avatarPictureFollow").css('background-image', "url('../assets/img/LogoNew.png')")
+                                document.getElementById("followButtonFollow").style.visibility = "visible";
+                                var c = document.getElementById("followButtonFollow")
+                                c.classList.remove("btn-primary")
+                                c.classList.add('btn-outline-primary');
+                                c.innerText = "Connected";
+                            }
+                        })
+                    }
+                })
+            });
+
+            $("#followButtonFollow").click(function (){
+                var v = $("#searchedUserFollow").text();
+                searchAllAgent(v, function (result){
+                    putFollow(result["id"], function (r){
+                        if(document.getElementById("followButtonFollow").innerText === "Follow"){
+                            var c = document.getElementById("followButtonFollow")
+                            c.classList.remove("btn-primary")
+                            c.classList.add('btn-outline-primary');
+                            c.innerText = "Connected";
+                        }
+                        else{
+                            var l = document.getElementById("followButtonFollow")
+                            l.classList.remove("btn-outline-primary")
+                            l.classList.add('btn-primary');
+                            l.innerText = "Follow";
+                        }
+                    })
+                })
+            });
+        });
+
+    </script>
+</body>
+
+</html>
