@@ -156,3 +156,26 @@ function putFollow(ID, callback){
         }
     });
 }
+function getBioJSON(bio) {
+    return JSON.stringify({
+        "bio": bio
+    });
+}
+
+function putNewBio(bio, callback){
+    $.ajax({
+        type: "PUT",
+        contentType: "application/json",
+        headers: {
+            "X-XSRF-TOKEN": getCookie("XSRF-TOKEN")
+        },
+        data: bio,
+        url: serviceEndpointURL + "/api/editBio/",
+        success: function (data) {
+            callback(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+        }
+    });
+}

@@ -18,13 +18,9 @@ public class ProfileController {
         return "acrm/profile.html";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/searchFollower")
     public String getCustomerCreateView(){
-        return "../acrm/customerCreate.html";
+        return "../acrm/searchFollower.html";
     }
 
-    @GetMapping("/edit")
-    public String getCustomerEditView(){
-        return "../acrm/customerEdit.html";
-    }
 }

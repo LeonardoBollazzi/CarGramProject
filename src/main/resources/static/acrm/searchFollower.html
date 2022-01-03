@@ -31,13 +31,13 @@
         <section class="portfolio-block cv">
             <div class="container">
                 <div class="work-experience group">
-                    <div class="heading"><input class="border rounded-0 form-control-lg" id="searchInput" type="search" placeholder="Search"><button class="btn btn-primary border rounded-0" id="SearchButton" type="button" style="height: 48px;margin-bottom: 7px;"><i class="fa fa-search"></i></button></div>
+                    <div class="heading"><input class="border rounded-0 form-control-lg" id="searchInputFollow" type="search" placeholder="Search"><button class="btn btn-primary border rounded-0" id="SearchButtonFollow" type="button" style="height: 48px;margin-bottom: 7px;"><i class="fa fa-search"></i></button></div>
                     <div class="item">
                         <div class="item">
                             <div class="row">
                                 <div class="col-md-6 offset-xl-0">
-                                    <div class="border rounded-pill avatar" id="avatarPicture" style="height: 75px;width: 75px;background: url(../assets/img/LogoNew.png) top / contain repeat;"></div>
-                                    <h3 id="searchedUser"></h3><button class="btn btn-outline-primary" id="followButton" hidden="hidden" type="button">Connected</button>
+                                    <div class="border rounded-pill avatar" id="avatarPictureFollow" style="height: 75px;width: 75px;background: url(../assets/img/LogoNew.png) top / contain repeat;"></div>
+                                    <h3 id="searchedUserFollow"></h3><button class="btn btn-outline-primary" id="followButtonFollow" hidden="hidden" type="button">Connected</button>
                                 </div>
                             </div>
                         </div>
@@ -55,28 +55,27 @@
     <script src="../assets/js/webapp.js"></script>
     <script>
         $(document).ready(function(){
-            $("#SearchButton").click(function (qualifiedName, value){
-                var v = $("#searchInput").val();
+            $("#SearchButtonFollow").click(function (qualifiedName, value){
+                var v = $("#searchInputFollow").val();
                 searchAllAgent(v, function (result){
                     if(result === 0){
-                        $("#searchedUser").text("Name not found!")
-                        $("#avatarPicture").css('background-image', "url('../assets/img/No%20Picture.png')")
-                        document.getElementById("followButton").style.visibility = "hidden";
+                        $("#searchedUserFollow").text("Name not found!")
+                        $("#avatarPictureFollow").css('background-image', "url('../assets/img/No%20Picture.png')")
+                        document.getElementById("followButtonFollow").style.visibility = "hidden";
                     }
                     else {
-                        $('#followButton').removeAttr('hidden');
-                        document.getElementById("followButton").style.visibility = "visible";
-                        $("#searchedUser").text(result["name"])
-                        $("#avatarPicture").css('background-image', "url('../assets/img/LogoNew.png')")
+                        $('#followButtonFollow').removeAttr('hidden');
                         ifFollow(result["id"], function (isFollowing){
                             if(!(isFollowing === 1)){
-                                var l = document.getElementById("followButton")
-                                l.classList.remove("btn-outline-primary")
-                                l.classList.add('btn-primary');
-                                l.innerText = "Follow";
+                                $("#searchedUserFollow").text("Name not found!")
+                                $("#avatarPictureFollow").css('background-image', "url('../assets/img/No%20Picture.png')")
+                                document.getElementById("followButtonFollow").style.visibility = "hidden";
                             }
                             else{
-                                var c = document.getElementById("followButton")
+                                $("#searchedUserFollow").text(result["name"])
+                                $("#avatarPictureFollow").css('background-image', "url('../assets/img/LogoNew.png')")
+                                document.getElementById("followButtonFollow").style.visibility = "visible";
+                                var c = document.getElementById("followButtonFollow")
                                 c.classList.remove("btn-primary")
                                 c.classList.add('btn-outline-primary');
                                 c.innerText = "Connected";
@@ -86,18 +85,18 @@
                 })
             });
 
-            $("#followButton").click(function (){
-                var v = $("#searchedUser").text();
+            $("#followButtonFollow").click(function (){
+                var v = $("#searchedUserFollow").text();
                 searchAllAgent(v, function (result){
                     putFollow(result["id"], function (r){
-                        if(document.getElementById("followButton").innerText === "Follow"){
-                            var c = document.getElementById("followButton")
+                        if(document.getElementById("followButtonFollow").innerText === "Follow"){
+                            var c = document.getElementById("followButtonFollow")
                             c.classList.remove("btn-primary")
                             c.classList.add('btn-outline-primary');
                             c.innerText = "Connected";
                         }
                         else{
-                            var l = document.getElementById("followButton")
+                            var l = document.getElementById("followButtonFollow")
                             l.classList.remove("btn-outline-primary")
                             l.classList.add('btn-primary');
                             l.innerText = "Follow";
