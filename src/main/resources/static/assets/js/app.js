@@ -95,6 +95,24 @@ function getCustomerJSON(id, name, email, mobile) {
         "mobile": mobile
     });
 }
+function postAgent(agent, callbackSuccess, callbackError) {
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        headers: {
+            "X-XSRF-TOKEN": getCookie("XSRF-TOKEN")
+        },
+        url: serviceEndpointURL + "/api/agent",
+        data: agent,
+        success: function (data) {
+            callbackSuccess(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+            callbackError(jqXHR.responseJSON.message);
+        }
+    });
+}
 
 function getAgent(callback) {
     $.ajax({
