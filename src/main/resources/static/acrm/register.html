@@ -18,8 +18,9 @@
             <div class="form-group mb-3"><input class="form-control" type="text" name="name" placeholder="Username" /></div>
             <div class="form-group mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
             <div class="form-group mb-3"><input type="password" class="form-control" name="password" placeholder="Password" /></div>
-            <!-- remove second password requirement
-            <div class="mb-3"><input class="form-control" type="password" name="password-repeat" placeholder="Password (repeat)"></div>
+
+            <!--
+            <div class="form-group mb-3"><input class="form-control" type="password" name="password-repeat" placeholder="Password (repeat)"></div>
 
             <div class="mb-3">
                 <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox">I agree to the license terms.</label></div>
@@ -48,7 +49,7 @@
 <script src="../assets/js/app.js"></script>
 <script src="../assets/js/webapp.js"></script>
 
-<!-- AM script from register -->
+<!-- Andreas M script from register -->
 <script>
     $(document).ready(function () {
         $("#form").submit(function (event) {
@@ -62,7 +63,25 @@
         });
     });
 </script>
-
+<!-- Script for repeat password verification
+<script>
+    function verifyPassword() {
+        let pass1 = document.getElementsByName("password").value;
+        let pass2 = document.getElementsByName("password-repeat").value;
+        let match = true;
+        if (pass1 != pass2) {
+            //alert("Passwords Do not match");
+            document.getElementById("new_password").style.borderColor = "#ff0000";
+            document.getElementById("verifyPassword").style.borderColor = "#ff0000";
+            match = false;
+        }
+        else {
+            alert("Passwords match.");
+        }
+        return match;
+    }
+</script>
+-->
 
 </body>
 
