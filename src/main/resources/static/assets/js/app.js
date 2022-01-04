@@ -102,7 +102,7 @@ function postAgent(agent, callbackSuccess, callbackError) {
         headers: {
             "X-XSRF-TOKEN": getCookie("XSRF-TOKEN")
         },
-        url: serviceEndpointURL + "/api/agent",
+        url: serviceEndpointURL + "/api/registration",
         data: agent,
         success: function (data) {
             callbackSuccess(data);
@@ -127,6 +127,25 @@ function getAgent(callback) {
         }
     });
 }
+/*
+function getAgentJSON(id, name, email, mobile) {
+    if (id === null) {
+        return JSON.stringify({
+            "name": name,
+            "email": email,
+            "password": password
+        });
+    }
+    return JSON.stringify({
+        "id": id,
+        "name": name,
+        "email": email,
+        "bio": "Hi I am user",
+        "remember": null,
+        "agentFollows": []
+    });
+}
+*/
 
 function searchAllAgent(name, callback) {
     $.ajax({
