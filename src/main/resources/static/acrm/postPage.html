@@ -10,19 +10,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
     <link rel="stylesheet" href="../assets/css/Picture.css">
+    <link rel="stylesheet" href="../assets/css/Toggle-Switch-1.css">
+    <link rel="stylesheet" href="../assets/css/Toggle-Switch.css">
     <link rel="stylesheet" href="../assets/css/untitled.css">
 </head>
 
 <body>
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
-        <div class="container"><a class="navbar-brand logo" href="#">CarGram</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand logo" href="#">Brand</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="PostPage.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="cv.html">Search</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="PostPage.html">Explore</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="PostPage.html">Events</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="PostPage.html">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="postPage.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="cv.html">Search</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="postPage.html">Explore</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="postPage.html">Events</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="postPage.html">Profile</a></li>
                 </ul>
             </div>
         </div>
@@ -31,7 +33,11 @@
         <section class="portfolio-block block-intro">
             <div class="container">
                 <div class="about-me">
-                    <p>Upload Area&nbsp;</p>
+                    <h1>Upload Page&nbsp;</h1><br /><br />
+
+                    <form><div class="d-flex justify-content-center align-items-center content" id="notConnectedText"><p>You are not connected with anyone yet</p></div>
+                        <label class="switch"><input type="checkbox"><span class="slider round"></span>
+</label></form>
                 </div>
             </div><div class="card text-white bg-primary mb-1">
   <div class="card-header">
@@ -39,9 +45,8 @@
   </div>
   <div class="card-body">
       <div class=" card-text form-group">
-          <textarea placeholder="Message" rows="4"
-                    class="form-control form-control-lg">
-          </textarea>
+          <textarea placeholder="Caption" rows="4"
+                    class="form-control form-control-lg"></textarea>
       </div>
     
   </div>
@@ -52,14 +57,16 @@
   </div>
   <div class="card-body">
       <div class=" card-text form-group">
-          <textarea placeholder="Message" rows="4"
-                    class="form-control form-control-lg">
-          </textarea>
+          <textarea placeholder="Media URL" rows="4"
+                    class="form-control form-control-lg"></textarea>
       </div>
-    
   </div>
 </div>
-<button class="btn btn-primary" type="button">Post</button>
+            <br />
+            <br />
+            <div class="container">
+                <div class="d-flex justify-content-center align-items-center content"><button class="btn btn-primary" id="postButtonPost" >Post</button></div></div>
+
         </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

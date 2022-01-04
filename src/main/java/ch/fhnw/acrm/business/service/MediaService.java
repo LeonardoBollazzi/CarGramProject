@@ -70,7 +70,6 @@ public class MediaService {
         try {
             Set<Agent> followList = agent.getAgentFollows();
             allMediaList = mediaRepository.findAll();
-            System.out.println(allMediaList.size());
 
             for (Media specificMedia : allMediaList) {
                 boolean found = false;
@@ -83,7 +82,6 @@ public class MediaService {
                     allMediaList.remove(specificMedia);
                 }
             }
-            System.out.println(allMediaList.size());
 
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
