@@ -3,6 +3,7 @@ package ch.fhnw.acrm.api;
 import ch.fhnw.acrm.business.service.AgentService;
 import ch.fhnw.acrm.data.domain.Agent;
 import ch.fhnw.acrm.business.service.MediaService;
+import ch.fhnw.acrm.data.domain.Customer;
 import ch.fhnw.acrm.data.domain.Media;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,12 @@ public class MediaEndpoint {
         return ResponseEntity.ok(likesCount);
     }
 
+    @GetMapping(path = "/getMediaFollow", produces = "application/json")
+    public List<Media> getMediaFollow() {
+        Agent agent = agentService.getCurrentAgent();
+        return mediaService.getMediaFollows(agent);
+    }
+
     // likes or unlikes a specific Media (Must be logged in) / media ID as Input / json as Output
     @PutMapping(path = "/likeMedia/{mediaID}", produces = "application/json")
     public ResponseEntity<Media> putLike(@PathVariable(value = "mediaID") String mediaID) {
@@ -100,5 +107,33 @@ public class MediaEndpoint {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
         }
         return ResponseEntity.accepted().body(media);
+    }
+
+
+
+
+    //////////////////////////////////////////////////////////////
+    // TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    @PostMapping(path = "/testPost/{userName}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Media> test(@RequestBody String str, @PathVariable(value = "userName") String userName) {
+        Media media;
+        try {
+            Agent agent = agentService.getSpecificAgent(userName);
+            JSONObject json = new JSONObject(str);
+            ObjectMapper mapper = new ObjectMapper();
+            media = mapper.readValue(json.toString(), Media.class);
+            media.setAgent(agent);
+            media = mediaService.saveMedia(media);
+        } catch (ConstraintViolationException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getConstraintViolations().iterator().next().getMessage());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{mediaID}")
+                .buildAndExpand(media.getId()).toUri();
+
+        return ResponseEntity.created(location).body(media);
     }
 }

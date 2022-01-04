@@ -64,4 +64,19 @@ public class MediaService {
         }
         return media;
     }
+
+    public List<Media> getMediaFollows(Agent agent) {
+        List<Media> mediaList = mediaRepository.findAll();
+        try {
+            Set<Agent> followList = agent.getAgentFollows();
+
+            for (Agent specificAgent : followList) {
+                mediaList.removeIf(media -> !(media.getAgent().getId().equals(specificAgent.getId())));
+            }
+
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
+        }
+        return mediaList;
+    }
 }
