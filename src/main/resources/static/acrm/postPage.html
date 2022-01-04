@@ -46,7 +46,7 @@
                   </div>
                   <div class="card-body">
                       <div class=" card-text form-group">
-                          <textarea placeholder="Caption" rows="4" class="form-control form-control-lg"></textarea>
+                          <textarea placeholder="Caption" rows="4" id="captionEntry" class="form-control form-control-lg"></textarea>
                       </div>
 
                   </div>
@@ -57,8 +57,7 @@
   </div>
   <div class="card-body">
       <div class=" card-text form-group">
-          <textarea placeholder="Media URL" rows="4"
-                    class="form-control form-control-lg"></textarea>
+          <textarea placeholder="Media URL" rows="4" id="urlEntry" class="form-control form-control-lg"></textarea>
       </div>
   </div>
 </div>
@@ -73,12 +72,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/post.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/webapp.js"></script>
     <script>
         $(document).ready(function(){
 
 
             $("#postButtonPost").click(function () {
-
+                let checkboxStatus = document.getElementById("eventCheckbox").checked;
+                if(checkboxStatus){
+                    postNewEvent(getEventJSON($("#captionEntry").val(), $("#urlEntry").val()),function (result){
+                        window.location.replace("/events");
+                    })
+                }
+                else{
+                    postNewMedia(getMediaJSON($("#urlEntry").val()), function (result){
+                        window.location.replace("/profilePage");
+                    })
+                }
             });
             $("#eventCheckbox").click(function (qualifiedName, value) {
                 let checkboxStatus = document.getElementById("eventCheckbox").checked;
