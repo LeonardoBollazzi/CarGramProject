@@ -66,6 +66,20 @@
             <div class="container">
                 <div class="d-flex justify-content-center align-items-center content"><button class="btn btn-primary" id="postButtonPost" >Post</button></div></div>
 
+
+            <div class="modal fade" role="dialog" tabindex="-1" id="error-modal">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: #e85e6c;">
+                            <h1 class="text-white">Ooops!</h1><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-truncate text-primary" id="error-text"></p>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-warning d-block w-100" type="button" data-bs-dismiss="modal">Try Again</button></div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -81,15 +95,23 @@
 
             $("#postButtonPost").click(function () {
                 let checkboxStatus = document.getElementById("eventCheckbox").checked;
-                if(checkboxStatus){
-                    postNewEvent(getEventJSON($("#captionEntry").val(), $("#urlEntry").val()),function (result){
-                        window.location.replace("/events");
-                    })
+                let caption = $("#captionEntry").val();
+                let url = $("#urlEntry").val();
+                if(url.match(/\.(jpeg|jpg|gif|png)$/) != null){
+                    if(checkboxStatus){
+                        postNewEvent(getEventJSON(caption, url),function (result){
+                            window.location.replace("/events");
+                        })
+                    }
+                    else{
+                        postNewMedia(getMediaJSON($("#urlEntry").val()), function (result){
+                            window.location.replace("/profilePage");
+                        })
+                    }
                 }
                 else{
-                    postNewMedia(getMediaJSON($("#urlEntry").val()), function (result){
-                        window.location.replace("/profilePage");
-                    })
+                    $("#error-modal").modal("show");
+                    $("#error-text").text("URL must end with .jpeg|jpg|gif|png");
                 }
             });
             $("#eventCheckbox").click(function (qualifiedName, value) {
