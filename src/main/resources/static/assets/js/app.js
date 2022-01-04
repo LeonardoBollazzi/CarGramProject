@@ -127,7 +127,7 @@ function getAgent(callback) {
         }
     });
 }
-/*
+
 function getAgentJSON(id, name, email, mobile) {
     if (id === null) {
         return JSON.stringify({
@@ -145,7 +145,6 @@ function getAgentJSON(id, name, email, mobile) {
         "agentFollows": []
     });
 }
-*/
 
 function searchAllAgent(name, callback) {
     $.ajax({
