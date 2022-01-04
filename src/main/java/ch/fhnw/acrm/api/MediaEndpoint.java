@@ -89,7 +89,7 @@ public class MediaEndpoint {
         return ResponseEntity.ok(likesCount);
     }
 
-    @GetMapping(path = "/getMediaFollow", produces = "application/json")
+    @GetMapping(path = "/mediaFollow", produces = "application/json")
     public List<Media> getMediaFollow() {
         Agent agent = agentService.getCurrentAgent();
         return mediaService.getMediaFollows(agent);

@@ -31,14 +31,14 @@
         <section class="portfolio-block block-intro"></section>
         <section class="portfolio-block photography">
             <div class="container">
-                <div class="row">
+                <div class="row" id="rowHome">
 
                 </div>
             </div>
         </section>
         <section class="portfolio-block call-to-action border-bottom">
             <div class="container">
-                <div class="d-flex justify-content-center align-items-center content"><h1>You are not connected with anyone yet</h1></div>
+                <div class="d-flex justify-content-center align-items-center content" id="notConnectedText"><h1>You are not connected with anyone yet</h1></div>
             </div>
             <br />
             <br />
@@ -69,6 +69,64 @@
     </script>
     <script>
         $(document).ready(function(){
+
+            $(loadMedia(6));
+            function loadMedia(Nr){
+                getMediaFollow(function (result){
+                    // If between 1 and 6 picture posted
+                    if(Object.keys(result).length > 0 && Object.keys(result).length <= Nr) {
+                        $("#notConnectedText").empty();
+                        $("#rowHome").empty();
+                        var mediaCount = Object.keys(result).length;
+                        var emptyCount = Nr-mediaCount;
+                        for (let i = mediaCount; 0 < i; i--) {
+                            let image = result[(i-1)]["url"];
+                            let mediaID = result[(i-1)]["id"];
+                            let mediaLikes = result[(i-1)]["likes"];
+                            let likes = Object.keys(mediaLikes).length;
+                            var html= `<div class="col-md-6 col-lg-4">
+                                        <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover"  alt="Card Image" src="${image}"></a>
+                                                <div class="card-body"><a class="btn btn-primary like-counter" onclick ="myFunction(${mediaID})" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text">${likes}</span></a></div>
+                                            </div>
+                                        </div>`;
+                            $("#rowHome").append(html);
+                        }
+                        for (let i = 0; i < emptyCount; i++) {
+                            let image = "../assets/img/No%20Picture.png"
+                            var html= `<div class="col-md-6 col-lg-4">
+                                        <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover"  alt="Card Image" src="${image}"></a>
+                                                <div class="card-body"><a class="btn btn-primary like-counter" hidden="hidden" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text"></span></a></div>
+                                            </div>
+                                        </div>`;
+                            $("#rowHome").append(html);
+                        }
+                    }
+                    // If more than 6 picture posted
+                    else if(Object.keys(result).length > Nr){
+                        $("#notConnectedText").empty();
+                        $("#rowHome").empty();
+                        let countOfPictures = Object.keys(result).length;
+                        let countDifference = countOfPictures-Nr;
+                        for (let i = countOfPictures; countDifference < i; i--) {
+                            let image = result[(i-1)]["url"];
+                            let mediaID = result[(i-1)]["id"];
+                            let mediaLikes = result[(i-1)]["likes"];
+                            let likes = Object.keys(mediaLikes).length;
+                            var html= `<div class="col-md-6 col-lg-4">
+                                        <div class="card border-0"><a href="#"><img class="card-img-top scale-on-hover"  alt="Card Image" src="${image}"></a>
+                                                <div class="card-body"><a class="btn btn-primary like-counter" onclick ="myFunction(${mediaID})" role="button" href="#"><i class="fa fa-thumbs-up"></i>&nbsp;|&nbsp;<span id="clicks" class="click-text">${likes}</span></a></div>
+                                            </div>
+                                        </div>`;
+
+                            $("#rowHome").append(html);
+                        }
+                    }
+                    // If 0 Media posted
+                    else {
+
+                    }
+                })
+            }
 
             $("#plusButtonHome").click(function () {
                 loadMedia(12)
