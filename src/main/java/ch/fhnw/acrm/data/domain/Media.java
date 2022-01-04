@@ -3,6 +3,7 @@ package ch.fhnw.acrm.data.domain;
 import javax.persistence.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -23,13 +24,13 @@ public class Media {
     @JoinTable(name = "media_agents",
             joinColumns = @JoinColumn(name = "media_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "agents_id", referencedColumnName = "id"))
-    private List<Agent> likes = new ArrayList<>();
+    private Set<Agent> likes = new LinkedHashSet<>();
 
-    public List<Agent> getLikes() {
+    public Set<Agent> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<Agent> likes) {
+    public void setLikes(Set<Agent> likes) {
         this.likes = likes;
     }
 

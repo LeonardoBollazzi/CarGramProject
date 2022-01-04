@@ -10,8 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,9 +43,9 @@ public class MediaService {
 
     public Media putMediaLike(Media media, Agent agent) {
         try {
-            List<Agent> likesList = media.getLikes();
+            Set<Agent> likesList = media.getLikes();
 
-            ArrayList<Agent> tempLikesList = new ArrayList<>(likesList);
+            Set<Agent> tempLikesList = new HashSet<>(likesList);
             tempLikesList.removeIf(agent1 -> agent.getId().equals(agent1.getId()));
 
             if(likesList.size()-tempLikesList.size() > 0){
