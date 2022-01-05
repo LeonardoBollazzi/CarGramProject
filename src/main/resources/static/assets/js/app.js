@@ -114,11 +114,11 @@ function postAgent(agent, callbackSuccess, callbackError) {
     });
 }
 
-function getAgent(callback) {
+function getAgent(agentID, callback) {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: serviceEndpointURL + "/api/registration/",
+        url: serviceEndpointURL + "/api/registration/" + agentID,
         success: function (data) {
             callback(data);
         },
@@ -127,6 +127,21 @@ function getAgent(callback) {
         }
     });
 }
+
+function getAgents(callback) {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: serviceEndpointURL + "/api/registration",
+        success: function (data) {
+            callback(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+        }
+    });
+}
+
 
 function getAgentJSON(id, name, email, mobile) {
     if (id === null) {
