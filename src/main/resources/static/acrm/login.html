@@ -112,7 +112,44 @@
     });
 </script>
 
+<!-- validation of email and password
+<script>
+    validateLogin(function(result){
+        if(result){
+            getAgent(
+                getAgentJSON()
+            )
+        }
+        else{
+            $("#error-modal").modal('show');
+            $("#error-text").text("Bad credentials!");
+        }
+    });
+</script>
 
+<script>
+    $(document).ready(function () {
+        $("#form").submit(function (event) {
+            getAgent(
+                getAgentJSON(
+                    $("input[name=name]").val(),
+                    $("input[name=email]").val(),
+                    $("input[name=password]").val()
+                ),
+                function (result) {
+                    window.location.replace("/home");
+                },
+                function (error) {
+                    $("#error-modal").modal("show");
+                    $("#error-text").text(error);
+                }
+            );
+            event.preventDefault();
+        });
+    });
+
+</script>
+-->
 </body>
 
 </html>
