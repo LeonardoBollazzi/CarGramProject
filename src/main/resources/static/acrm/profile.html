@@ -100,15 +100,15 @@
         $(document).ready(function(){
             $(loadUser());
             function loadUser(){
-                getAgent(function (result){
+                getCurrentAgent(function (result){
                     $("#UserName").text(result["name"]),
                     $("#Biography").val(result["bio"]),
                     document.getElementById("saveBioButton").style.visibility = "hidden";
                 })
             }
 
-
-            $(loadMedia(6));
+            var contentCount = 6;
+            $(loadMedia(contentCount));
             function loadMedia(Nr){
                 getAgentMedia(function (result){
                     // If between 1 and 6 picture posted
@@ -177,7 +177,8 @@
                 })
             });
             $("#plusButtonProfile").click(function () {
-                loadMedia(12)
+                contentCount = contentCount+6;
+                loadMedia(contentCount);
             });
             $("#searchConnectionsButton").click(function () {
                 window.location.replace("/profilePage/searchFollower");
