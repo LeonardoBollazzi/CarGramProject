@@ -121,7 +121,8 @@
     <script>
         $(document).ready(function(){
 
-            $(loadMedia(6));
+            var contentCount = 6;
+            $(loadMedia(contentCount));
             function loadMedia(Nr){
                 getExploreMedia(function (result){
                     // If between 1 and 6 picture posted
@@ -179,7 +180,8 @@
             }
 
             $("#plusButtonMedia").click(function () {
-                loadMedia(12)
+                contentCount = contentCount+6;
+                loadMedia(contentCount)
             });
             $("#Home").click(function () {
                 window.location.replace("/home");

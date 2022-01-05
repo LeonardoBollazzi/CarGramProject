@@ -128,7 +128,7 @@ function getAgent(agentID, callback) {
     });
 }
 
-function getAgents(callback) {
+function getCurrentAgent(callback) {
     $.ajax({
         type: "GET",
         dataType: "json",
