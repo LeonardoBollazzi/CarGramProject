@@ -76,7 +76,7 @@ The `ch.fhnw.acrm.data.domain` package contains the following domain objects / e
 
 The `ch.fhnw.acrm.business.service` package contains classes of the following business services:
 
-![](images/business-service.png)
+![](images/Business Service.png)
 
 ### Endpoint Design
 **Path**: [`/api/customer`](/api/customer) 
