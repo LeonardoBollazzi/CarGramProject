@@ -5,8 +5,6 @@
 
 package ch.fhnw.acrm.business.service;
 
-import ch.fhnw.acrm.data.domain.Event;
-import ch.fhnw.acrm.data.domain.Media;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,9 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import javax.validation.Validator;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
