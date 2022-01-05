@@ -1,11 +1,9 @@
-# A-CRM Web App
+# CarGram
 
-This is a minimal CRM Web App (A-CRM - Insurance Agency CRM) as a template for students. 
+This is a Web application with social media characteristics 
 
 [![License](https://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Deploy to Heroku](https://img.shields.io/badge/deploy%20to-Heroku-6762a6.svg?longCache=true)](https://heroku.com/deploy)
-
-> 🚧 **This is a template project**: Make sure that you adapt this documentation and the source code in this project according to your needs and use case.
 
 #### Contents:
 - [Analysis](#analysis)
@@ -30,24 +28,33 @@ This is a minimal CRM Web App (A-CRM - Insurance Agency CRM) as a template for s
 
 ### Scenario
 
-A-CRM (Agency Customer-Relationship-Management) is the smallest possible and lightweight demonstration tool that allows agents to manage their customer data. Agents have an own access to their customer data.
+CarGram is a social media web application for car lovers. Users want to share their experiences of their favorite cars with the rest of the car loving community.
+Users desire to enjoy and explore pictures from other users and want to be able to like pleasant content.
+Furthermore, users want to know about different car events/festivals that will take place.
 
 ### User Stories
-1.	As an insurance agent, I want to have a Web app so that I can use it on different mobile devices and on desktop computers.
-2.	As an insurance agent, I want to see a consistent visual appearance so that I can navigate easily, and it looks consistent.
-3.	As an insurance agent, I want to use list views so that I can explore and read my business data.
-4.	As an insurance agent, I want to use edit and create views so that I can maintain my business data.
-5.	As an insurance agent, I want to create an account so that I can get access to the Web app.
-6.	As an insurance agent, I want to log-in so that I can authenticate myself.
-7.	As an insurance agent, I want to edit my profile so that my data is stored securely.
+1. As a CarGram user, I want to have a Web app so that I can use it on different mobile devices and on desktop computers.
+2. As a CarGram user, I want to create an account so that I can get access to CarGram.
+3. As a CarGram user, I want to log-in so that I can authenticate myself.
+4. As a CarGram user, I want to see a consistent visual appearance so that I can navigate easily, and it looks consistent.
+5. As a CarGram user, I want to be able to connect/follow other users
+6. As a CarGram user, I want to explore different car events/festivals that will take place in the future.
+7. As a CarGram user, I want to explore pictures from users I don't know.
+8. As a CarGram user, I want to be able to see pictures from people that I'm connected with.
+9. As a CarGram user, I want to be able to see my posted pictures.
+10. As a CarGram user, I want to be able to like pictures and events.
+11. As a CarGram user, I want to use edit and create views so that I can maintain my business data.
+12. As a CarGram user, I want to edit my profile information.
 
 ### Use Case
-![](images/use-case.png)
+![](images/Use Case.png)
 
-- UC-1 [Login on A-CRM]: Agents can log-in by entering an email address and password. As an extension, new agents my register first.
-- UC-2 [Register on A-CRM]: Agents can register to get an account (profile) to access the A-CRM system.
-- UC-3 [Edit a customer]: Agents can create, update and delete customers.
-- UC-4 [Show a customer list]: Agents can get an overview over their customers based on a customer list. As an extension they can create, update and delete customers (UC-3).
+- UC-1 [Login on CarGram]: User can log-in by entering an email address and password. As an extension, new user my register first.
+- UC-2 [Register on CarGram]: User can register to get an account (profile) to access the CarGram system.
+- UC-3 [Edit profile]: User can edit its profile information when logged in.
+- UC-4 [Post]: Logged-in user can post Media/Event.
+- UC-5 [Like Media]: logged-in user can like a media post.
+- UC-6 [Like Event]: logged-in user can like an event post.
 
 ## Design
 
@@ -188,7 +195,11 @@ The Web application can be accessed over the browser by using the following addr
 ## Project Management
 
 ### Roles
-- All-rounder 😉: [Andreas Martin](https://andreasmartin.ch)
+- All-rounder : [Steven Njugana]()
+- All-rounder : [Leonardo Bollazzi]()
+- All-rounder : [Chima Obasi]()
+- All-rounder : [Damian Schumacher]()
+- All-rounder : [Najeem Takiyu-Deen]()
 
 ### Milestones
 1. **Analysis**: Scenario ideation, use case analysis and user story writing.
@@ -200,7 +211,11 @@ The Web application can be accessed over the browser by using the following addr
 7. **Deployment**: Deployment of Web application on cloud infrastructure.
 
 #### Maintainer
-- [Andreas Martin](https://andreasmartin.ch)
+- [Steven Njugana]()
+- [Leonardo Bollazzi]()
+- [Chima Obasi]()
+- [Damian Schumacher]()
+- [Najeem Takiyu-Deen]()
 
 #### License
 - [Apache License, Version 2.0](blob/master/LICENSE)
