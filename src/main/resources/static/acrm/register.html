@@ -50,7 +50,7 @@
 <script src="../assets/js/script.js"></script>
 <script src="../assets/js/webapp.js"></script>
 
-<!-- Andreas M script from register -->
+<!-- Andreas M script from register
 <script>
     $(document).ready(function () {
         $("#form").submit(function (event) {
@@ -65,7 +65,7 @@
     });
 </script>
 
-<!-- Andreas M script from customerCreate -->
+ Andreas M script from customerCreate
 <script>
     $(document).ready(function () {
         $("#form").submit(function (event) {
@@ -86,8 +86,37 @@
             event.preventDefault();
         });
     });
-
 </script>
+-->
+
+<script>
+    $(document).ready(function () {
+        $("#form").submit(function (event) {
+            register($('input[name=name]').val(), $('input[name=email]').val(), $('input[name=password]').val(), function (result) {
+                window.location.replace("/login");
+            }, function (error) {
+                $("#error-modal").modal('show');
+                $("#error-text").text(error);
+            });
+            postAgent(
+                getAgentJSON(
+                    $("input[name=name]").val(),
+                    $("input[name=email]").val(),
+                    $("input[name=password]").val()
+                ),
+                function (result) {
+                    window.location.replace("/login");
+                },
+                function (error) {
+                    $("#error-modal").modal("show");
+                    $("#error-text").text(error);
+                }
+            );
+            event.preventDefault();
+        });
+    });
+</script>
+
 <!-- Script for repeat password verification
 <script>
     function verifyPassword() {

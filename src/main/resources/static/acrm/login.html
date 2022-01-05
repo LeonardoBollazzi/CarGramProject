@@ -150,6 +150,33 @@
 
 </script>
 -->
+<script>
+    $(document).ready(function () {
+        $("#form").submit(function (event) {
+            validateLogin(function(result){
+                if(result){
+                    getAgent(
+
+                        function (result) {
+                            window.location.replace("/home");
+                        },
+                        function (error) {
+                            $("#error-modal").modal("show");
+                            $("#error-text").text(error);
+                        }
+                    );
+                }
+                else{
+                    $("#error-modal").modal('show');
+                    $("#error-text").text("Bad credentials!");
+                }
+            });
+            event.preventDefault();
+        });
+    });
+
+</script>
+
 </body>
 
 </html>
