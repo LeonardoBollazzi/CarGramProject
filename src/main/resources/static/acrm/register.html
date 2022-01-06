@@ -57,7 +57,7 @@
     $(document).ready(function () {
         $("#form").submit(function (event) {
             register($('input[name=name]').val(), $('input[name=email]').val(), $('input[name=password]').val(), function (result) {
-                window.location.replace("/../");
+                window.location.replace("../");
             }, function (error) {
                 $("#error-modal").modal('show');
                 $("#error-text").text(error);
