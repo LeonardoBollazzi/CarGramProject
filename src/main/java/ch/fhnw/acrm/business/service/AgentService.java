@@ -43,7 +43,11 @@ public class AgentService {
         agent.setPassword(passwordEncoder.encode(agent.getPassword()));
         agentRepository.save(agent);
     }
-
+    /* test get agent password method
+    public String getAgentPassword(Agent agent) throws Exception {
+        return agent.getPassword();
+    }
+    */
     public Agent getCurrentAgent() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return agentRepository.findByEmail(user.getUsername());
@@ -58,7 +62,12 @@ public class AgentService {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return agentRepository.findByIdEquals(agentID);
     }
-
+/* find agents email
+    public Agent getAgentByEmail(String email) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return agentRepository.findByEmail(email);
+    }
+*/
     public Agent putFollow(Agent follower, Agent followee) {
         try {
             if(!follower.getId().equals(followee.getId())) {
