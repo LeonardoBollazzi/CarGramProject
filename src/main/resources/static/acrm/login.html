@@ -41,7 +41,7 @@
             <!--
              <a class="forgot" href="#">Forgot your email or password?</a>
              -->
-            <div class="mb-3"><a class="btn btn-primary d-block w-100" type="submit" role="button" href="/acrm/register.html">Sign Up</a></div>
+            <div class="mb-3"><a class="btn btn-primary d-block w-100" type="submit" role="button" href="/user/register">Sign Up</a></div>
         </div><a class="forgot" href="#">Don't have an account yet?</a>
     </form>
     <div></div>
@@ -100,7 +100,7 @@
         $("#form").submit(function (event) {
             login($('input[name=email]').val(), $('input[name=password]').val(), $('input[name=remember]').is(":checked"), function (result) {
                 if(result) {
-                    window.location.replace("/home");
+                    window.location.replace("../");
                 }
                 else {
                     $("#error-modal").modal('show');

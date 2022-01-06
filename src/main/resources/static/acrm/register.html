@@ -27,7 +27,9 @@
             </div>
             -->
             <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Sign Up</button></div>
+            <!--
             <a class="already" href="/acrm/login.html">You already have an account? Login here.</a>
+            -->
         </form>
     </div>
 </section>
@@ -55,7 +57,7 @@
     $(document).ready(function () {
         $("#form").submit(function (event) {
             register($('input[name=name]').val(), $('input[name=email]').val(), $('input[name=password]').val(), function (result) {
-                window.location.replace("/login");
+                window.location.replace("/../");
             }, function (error) {
                 $("#error-modal").modal('show');
                 $("#error-text").text(error);
@@ -66,6 +68,7 @@
 </script>
 
 <!-- Andreas M script from customerCreate -->
+<!--
 <script>
     $(document).ready(function () {
         $("#form").submit(function (event) {
@@ -88,6 +91,7 @@
     });
 
 </script>
+-->
 <!-- Script for repeat password verification
 <script>
     function verifyPassword() {
