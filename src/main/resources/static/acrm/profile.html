@@ -31,7 +31,7 @@
         <section class="portfolio-block block-intro">
             <div class="container">
                 <div class="dropdown" style="text-align: right;"><button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">More</button>
-                    <div class="dropdown-menu"><a class="dropdown-item" href="#" id="searchConnectionsButton">Search Connections</a><a class="dropdown-item" href="#" id="editBio">Edit Bio</a><a class="dropdown-item" href="#">Log Out</a></div>
+                    <div class="dropdown-menu"><a class="dropdown-item" href="#" id="searchConnectionsButton">Search Connections</a><a class="dropdown-item" href="#" id="editBio">Edit Bio</a><a class="dropdown-item" id="logOut" href="#">Log Out</a></div>
                 </div>
             </div>
             <div class="container">
@@ -197,6 +197,9 @@
             });
             $("#Profile").click(function () {
                 window.location.replace("/profilePage");
+            });
+            $("#logOut").click(function () {
+                window.location.replace("/login");
             });
         });
 
