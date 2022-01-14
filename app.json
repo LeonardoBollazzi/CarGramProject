@@ -1,7 +1,7 @@
 {
-  "name": "acrm",
-  "description": "Minimal Agency Customer Relationship Management Demo APP",
-  "website": "https://andreasmartin.ch",
+  "name": "CarGram",
+  "description": "A one stop website for everything Cars. Enthusiasts can share and like car images, connect with friends and other fellow car enthusiasts, attend recommended events and get products or services from dealers present on the site",
+  "website": "https://cargram.herokuapp.com",
   "env": {
     "TOKEN_SECRET": {
       "description": "A secret key for verifying the integrity of JWT.",
