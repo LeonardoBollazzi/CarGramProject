@@ -79,7 +79,7 @@ The `ch.fhnw.acrm.business.service` package contains classes of the following bu
 ![](images/Business Service.png)
 
 ### Endpoint Design
-**Path**: [`/api/customer`](/api/customer) 
+**Path**: [`/api/mediaHandling`](/api/mediaHandling) 
 
 **Method:** `POST`
 
@@ -87,43 +87,27 @@ The `ch.fhnw.acrm.business.service` package contains classes of the following bu
 
 ```JSON
 {
-  "agent": {
-    "customers": [
-      null
-    ],
-    "email": "string",
-    "id": 0,
-    "name": "string",
-    "password": "string",
-    "remember": "string"
-  },
-  "email": "string",
-  "id": 0,
-  "mobile": "string",
-  "name": "string"
+  "url": "string"
 }
 ```
 
 • *Optional:* `...`
   
-**Success Response**  • *Code:* `200 OK` • *Sample Body:*
+**Success Response**  • *Code:* `201 created` • *Sample Body:*
 
 ```JSON
 {
+  "id": "long",
   "agent": {
-    "customers": [
-      null
-    ],
-    "email": "string",
-    "id": 0,
+    "id": "long",
     "name": "string",
-    "password": "string",
-    "remember": "string"
+    "email": "string",
+    "bio": "string",
+    "remember": "string",
+    "agentFollows": ["Agent"]
   },
-  "email": "string",
-  "id": 0,
-  "mobile": "string",
-  "name": "string"
+  "url": "string",
+  "likes": ["Agent"]
 }
 ```
 
