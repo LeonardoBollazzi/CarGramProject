@@ -1,7 +1,7 @@
 function getEvents(callback) {
     $.ajax({
         type: "GET",
-        dataType: "application/json",
+        dataType: "json",
         url: serviceEndpointURL + "/api/allEventHandling/",
         success: function (data) {
             callback(data);

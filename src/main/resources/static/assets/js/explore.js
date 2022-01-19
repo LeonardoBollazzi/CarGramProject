@@ -1,7 +1,7 @@
 function getExploreMedia(callback) {
     $.ajax({
         type: "GET",
-        dataType: "application/json",
+        dataType: "",
         url: serviceEndpointURL + "/api/allMediaHandling/",
         success: function (data) {
             callback(data);
